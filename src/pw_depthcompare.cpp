@@ -64,7 +64,7 @@ int main(int argc, char **argv)
         avg_extra += extra;
         avg_difference += difference / (mat_depthgt.rows * mat_depthgt.cols - extra - missing);
         count = count + step;
-        cnt = cnt++;
+        cnt++;
     }
     avg_missing /= cnt;
     avg_extra /= cnt;

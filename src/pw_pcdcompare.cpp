@@ -104,9 +104,10 @@ int main(int argc, char **argv)
     pcl::PointCloud<pcl::PointXYZ>::Ptr cloudpred(new pcl::PointCloud<pcl::PointXYZ>);
     while (count < end)
     {
-        std::cout << "PointCloud " << cnt << std::endl;
-        sprintf(file_gt, "%s%05d%s", gtdir.c_str(), cnt, gtending.c_str());
-        sprintf(file_pred, "%s%05d%s", preddir.c_str(), cnt, predending.c_str());
+
+        sprintf(file_gt, "%s%05d%s", gtdir.c_str(), count, gtending.c_str());
+        sprintf(file_pred, "%s%05d%s", preddir.c_str(), count, predending.c_str());
+
         if (pcl::io::loadPCDFile<pcl::PointXYZ>(file_gt, *cloudgt) == -1) //* load the file
         {
             PCL_ERROR("Couldn't read file \n");
@@ -117,8 +118,8 @@ int main(int argc, char **argv)
             PCL_ERROR("Couldn't read file \n");
             return (-1);
         }
+        std::cout << count << std::endl;
         cv::Mat mat_depthgt = createDepth(cloudgt, K, height, width);
-
         cv::Mat mat_depthpred = createDepth(cloudpred, K, height, width);
 
         float missing = 0;
@@ -152,7 +153,7 @@ int main(int argc, char **argv)
         avg_extra += extra;
         avg_difference += difference / (mat_depthgt.rows * mat_depthgt.cols - extra - missing);
         count = count + step;
-        cnt = cnt++;
+        cnt++;
     }
     avg_missing /= cnt;
     avg_extra /= cnt;

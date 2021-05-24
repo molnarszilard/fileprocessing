@@ -25,14 +25,12 @@ using namespace std;
 
 int main(int argc, char **argv)
 {
-
-    // calibration parameters
-    // double K[9] = {385.8655956930966, 0.0, 342.3593021849471,
-    //                0.0, 387.13463636528166, 233.38372018194542,
-    //                0.0, 0.0, 1.0};
-
-    // EEPROM parameters
-    std::string camera_type = argv[4];
+    std::string idir = argv[1];
+    std::string odir = argv[2];
+    std::string filename = argv[3];
+    int height_ = atoi(argv[4]);
+    int width_ = atoi(argv[5]);
+    std::string camera_type = argv[6];
     std::string camera_type_pico = "pico";
     double K[9] = {582.62448167737955, 0.0, 313.04475870804731, 0.0, 582.69103270988637, 238.44389626620386, 0.0, 0.0, 1.0}; // nyu_v2_dataset
     if (camera_type.compare(camera_type_pico) == 0)
@@ -47,17 +45,21 @@ int main(int argc, char **argv)
     double fy = K[4];
     double x0 = K[2];
     double y0 = K[5];
-    int height_ = atoi(argv[2]);
-    int width_ = atoi(argv[3]);
+
     int pixel_pos_x, pixel_pos_y;
     double z, u, v;
     cv::Mat cv_image;
     std::vector<Point2d> imagePoints;
 
     pcl::PointCloud<pcl::PointXYZ>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZ>);
-    std::string filename = argv[1];
+    char file_in[200];
+    sprintf(file_in, "%s%s", idir.c_str(), filename.c_str());
+    filename = filename.substr(0, filename.size() - 3);
+    char file_out[200];
+    sprintf(file_out, "%s%spng", odir.c_str(), filename.c_str());
+    std::cout << "D2PCD: " << filename.c_str() << std::endl;
     // printf("Processing: %s\n", filename);
-    if (pcl::io::loadPCDFile<pcl::PointXYZ>(filename, *cloud) == -1) //* load the file
+    if (pcl::io::loadPCDFile<pcl::PointXYZ>(file_in, *cloud) == -1) //* load the file
     {
         PCL_ERROR("Couldn't read file \n");
         return (-1);
@@ -73,7 +75,7 @@ int main(int argc, char **argv)
             nan = true;
         if (isinf(cloud->points[i].x) || isinf(cloud->points[i].y) || isinf(cloud->points[i].z))
             nan = true;
-        if (cloud->points[i].z <= 20/1000)
+        if (cloud->points[i].z <= 20 / 1000)
             nan = true;
         if (!nan)
         {
@@ -108,15 +110,7 @@ int main(int argc, char **argv)
         }
     }
     std::cout << "Depth has : " << count << " data points." << std::endl;
-    // std::cout << "Params: " << maxx << ", " << maxy << ", " << maxz << std::endl;
-    //output.convertTo(output, CV_16UC3);
 
-    // imshow("Display depth from point cloud", cv_image);
-    // waitKey(3);
-    filename = filename.substr(0, filename.size() - 3);
-    imwrite(filename + "png", output);
+    imwrite(file_out, output);
 
-    // printf("Image is saved to: %s.png\n",filename);
-    //sensor_msgs::ImagePtr output_image = cv_bridge::CvImage(std_msgs::Header(), "16UC1", cv_image).toImageMsg();
-    //pub_.publish(output_image);
 }

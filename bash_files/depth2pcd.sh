@@ -6,6 +6,10 @@ pcddir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/own/working/pcdpred/
 if [[ ! -z "$1" ]] 
 then 
     ddir=$1
+    if [[ ! -z "$2" ]] 
+    then 
+        pcddir=$2
+    fi
 fi
 cd $ddir
 

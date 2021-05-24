@@ -19,7 +19,7 @@ int main(int argc, char **argv)
     char file_out[200];
     sprintf(file_out, "%s%s_sor.pcd", odir.c_str(), filename.c_str());
 
-    std::cout << "Processing: " << filename << std::endl;
+    std::cout << "SOR filter for: " << filename.c_str() << std::endl;
     // Fill in the cloud data
     pcl::PCDReader reader;
     // Replace the path below with the path where you saved your file

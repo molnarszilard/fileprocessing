@@ -2,43 +2,22 @@
 builddir=$PWD'/../build/'
 
 # path, leaf size, meanK, StddevMulThresh
-histo=histogram_own_v48m_00.txt
-noise=n00
+histo=histogram_$1.txt
 start=0
 end=1449
-gtdir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/pcn/pcn_n00/
+gtdir=/media/rambo/ssd2/Szilard/toffilter_nyu/evaluation/$2gt/
 gtending=.pcd
 
 case $1 in
     base) # original noisy data
     echo BASE
-        preddir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/pcdnoise_$noise/
+        preddir=/media/rambo/ssd2/Szilard/toffilter_nyu/evaluation/$2/
         predending=.pcd
         ;;
     own) # toffilter prediction
         echo ToFFilter
-        preddir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/own/pcdpred_$noise/
-        predending=_pred.pcd
-        ;;
-    sor) # statistical outlier removal
-        echo StatisticalOutlierRemoval
-        preddir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/pclsor/$noise'_sor/'
-        predending=_sor.pcd
-        ;;
-    pcn) # pointcleannet
-        echo PointCleanNet
-        preddir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/pcn/pcn_$noise/
+        preddir=/media/rambo/ssd2/Szilard/toffilter_nyu/evaluation/$2_pred/
         predending=.pcd
-        ;;
-    matlab) #matlab denoiser
-        echo Matlab
-        preddir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/matlab_pred/matlab_$noise/
-        predending=_matlab.pcd
-        ;;
-    ddd) # deep depth denoising
-        echo DeepDepthDenoising
-        preddir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/ddd/ddd_$noise/
-        predending=_ddd.pcd
         ;;
     ownmask) # toffilter prediction with mask
         echo ToFFilterMask
@@ -56,10 +35,13 @@ cd $builddir
 step=1
 case $2 in
     depth)
-        ./pw_depthcomapre $gtdir $preddir $gtending $predending $start $end $step
+        ./pw_depthcompare $gtdir $preddir $gtending $predending $start $end $step
+        ;;
     pcd)
-        ./pw_pcdcomapre $gtdir $preddir $gtending $predending $start $end $step nyu 480 640
+        echo pcd
+        ./pw_pcdcompare $gtdir $preddir $gtending $predending $start $end $step nyu 480 640
+        ;;
     *)
-        ./pw_depthcomapre $gtdir $preddir $gtending $predending $start $end $step
+        ./pw_depthcompare $gtdir $preddir $gtending $predending $start $end $step
+        ;;
 esac
-./comparepcd $histo 

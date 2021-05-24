@@ -8,7 +8,7 @@ import argparse
 import cv2
 
 parser = argparse.ArgumentParser(description='Process some integers.')
-parser.add_argument('--dir', default="/media/rambo/ssd2/Szilard/nyu_v2_filter/depthpcn/",
+parser.add_argument('--dir', default="/media/rambo/ssd2/Szilard/toffilter_nyu/depth/",
                     help='the directory to the source files')
 args = parser.parse_args()
 
@@ -77,14 +77,14 @@ for i in range(len(images)):
     fliplr(img,image_name)
     flipud(img,image_name)
 
-f = open(directory+"filelist.txt", "w")
+# f = open(directory+"filelist.txt", "w")
 
-dlist=os.listdir(directory)
-dlist.sort()
-for filename in dlist:
-    if filename.endswith(".jpg") or filename.endswith(".png"):
-        #print(os.path.join(directory, filename))
-        f.write(filename+"\n")
-    else:
-        continue
-f.close()
+# dlist=os.listdir(directory)
+# dlist.sort()
+# for filename in dlist:
+#     if filename.endswith(".jpg") or filename.endswith(".png"):
+#         #print(os.path.join(directory, filename))
+#         f.write(filename+"\n")
+#     else:
+#         continue
+# f.close()

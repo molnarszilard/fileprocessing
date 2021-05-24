@@ -34,7 +34,7 @@ int main(int argc, char **argv)
     {
         for (int y = 0; y < mat_depth.cols; y++)
         {
-            if (mat_depth.at<uint16_t>(x, y) >= maxVal) // set threshold
+            if (mat_depth.at<uint16_t>(x, y) >= maxVal*0.9) // set threshold
             {
                 counter++;
                 output.at<uint8_t>(x, y) = 255;
