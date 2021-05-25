@@ -13,6 +13,7 @@ int main(int argc, char **argv)
     std::string ddir = argv[1];
     std::string mdir = argv[2];
     std::string filename = argv[3];
+    int multiplier = atof(argv[4]);
     char file_depth[200];
     char file_depthmask[200];
 
@@ -34,7 +35,7 @@ int main(int argc, char **argv)
     {
         for (int y = 0; y < mat_depth.cols; y++)
         {
-            if (mat_depth.at<uint16_t>(x, y) >= maxVal*0.9) // set threshold
+            if (mat_depth.at<uint16_t>(x, y) >= maxVal*multiplier) // set threshold
             {
                 counter++;
                 output.at<uint8_t>(x, y) = 255;

@@ -16,5 +16,5 @@ cd $ddir
 for filename in *.png; do
     cd $builddir
     # depth directory, mask directory, filename
-    ./create_mask $ddir $mdir $filename
+    ./create_mask $ddir $mdir $filename 0.9
 done

@@ -31,7 +31,7 @@ int main(int argc, char **argv)
     std::cout<<"Processing: "<<file_depth<<std::endl;
     dfilename = dfilename.substr(0, dfilename.size() - 4);
     sprintf(file_mask, "%s%s", mdir.c_str(), mfilename.c_str());    
-    sprintf(file_pcd, "%s%s", pcddir.c_str(), dfilename.c_str());
+    sprintf(file_pcd, "%s%s.pcd", pcddir.c_str(), dfilename.c_str());
 
     std::string camera_type = argv[6];
     std::string camera_type_pico = "pico";

@@ -28,11 +28,12 @@ int main(int argc, char **argv)
 
     while (count < end)
     {
-        sprintf(file_gt, "%s%05d%s", gtdir.c_str(), cnt, gtending.c_str());
-        sprintf(file_pred, "%s%05d%s", preddir.c_str(), cnt, predending.c_str());
+        
+        sprintf(file_gt, "%s%05d%s", gtdir.c_str(), count, gtending.c_str());
+        sprintf(file_pred, "%s%05d%s", preddir.c_str(), count, predending.c_str());
         cv::Mat mat_depthgt = cv::imread(file_gt, CV_LOAD_IMAGE_UNCHANGED);
         cv::Mat mat_depthpred = cv::imread(file_pred, CV_LOAD_IMAGE_UNCHANGED);
-
+        std::cout << file_gt << std::endl;
         float missing = 0;
         float extra = 0;
         float difference = 0;
