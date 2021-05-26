@@ -13,7 +13,7 @@ int main(int argc, char **argv)
     std::string ddir = argv[1];
     std::string mdir = argv[2];
     std::string filename = argv[3];
-    int multiplier = atof(argv[4]);
+    float multiplier = atof(argv[4]);
     char file_depth[200];
     char file_depthmask[200];
 
