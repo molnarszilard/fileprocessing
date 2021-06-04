@@ -1,15 +1,20 @@
 #!bin/bash
 builddir=$PWD'/../build/'
-default_dir=/media/rambo/ssd2/Szilard/nyu_v2_filter/dataset_plane/pcd_vox/
-normalradius=0.03
+input_dir=/media/rambo/ssd2/Szilard/nyu_v2_filter/dataset_plane/pcd/
+output_dir=/media/rambo/ssd2/Szilard/nyu_v2_filter/dataset_plane/pcd_vox/
+normalradius=1.0
 
 if [[ ! -z "$1" ]] 
 then 
-    default_dir=$1
+    input_dir=$1
+    if [[ ! -z "$2" ]] 
+    then 
+        output_dir=$2
+    fi
 fi
-cd $default_dir
+cd $input_dir
 
 for filename in *.pcd; do
     cd $builddir
-    ./compute_normals $default_dir$filename $normalradius
+    ./compute_normals $input_dir $output_dir $filename $normalradius
 done

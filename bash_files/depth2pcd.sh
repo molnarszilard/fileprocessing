@@ -16,5 +16,5 @@ cd $ddir
 for filename in *.png; do
     cd $builddir
     # path
-    ./depth2pcd $ddir $pcddir $filename nyu
+    ./depth2pcd $ddir $pcddir $filename kitti
 done

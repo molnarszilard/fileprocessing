@@ -16,5 +16,5 @@ cd $input_dir
 for filename in *.pcd; do
     cd $builddir
     # path, height, width, cameratype
-    ./pcd2depth $input_dir $output_dir $filename 480 640 nyu
+    ./pcd2depth $input_dir $output_dir $filename 352 1216 kitti
 done

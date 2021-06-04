@@ -16,5 +16,5 @@ cd $input_dir
 
 for filename in *.pcd; do
     cd $builddir
-    ./voxel_filter $input_dir $output_dir $filename 0.005f 50 0.5
+    ./voxel_filter $input_dir $output_dir $filename 0.03f 50 0.5
 done

@@ -6,6 +6,10 @@ output_dir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/pcndepth/ # path t
 if [[ ! -z "$1" ]] 
 then 
     input_dir=$1
+    if [[ ! -z "$2" ]] 
+    then 
+        output_dir=$2
+    fi
 fi
 cd $input_dir
 

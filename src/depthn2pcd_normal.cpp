@@ -27,12 +27,15 @@ int main(int argc, char *argv[])
     sprintf(file_depth, "%s%s", ddir.c_str(), filename.c_str());
     char file_normal[200];
     sprintf(file_normal, "%s%s", ndir.c_str(), nfilename.c_str());
+    std::cout<<file_normal<<std::endl;
     filename = filename.substr(0, filename.size() - 3);
     char file_out[200];
     sprintf(file_out, "%s%spcd", odir.c_str(), filename.c_str());
 
     std::string camera_type = argv[6];
     std::string camera_type_pico = "pico";
+    std::string camera_type_nyu = "nyu";
+    std::string camera_type_kitti = "kitti";
     double K[9] = {582.62448167737955, 0.0, 313.04475870804731, 0.0, 582.69103270988637, 238.44389626620386, 0.0, 0.0, 1.0}; // nyu_v2_dataset
     if (camera_type.compare(camera_type_pico) == 0)
     {
@@ -41,6 +44,22 @@ int main(int argc, char *argv[])
         K[2] = 334.0805877590529;
         K[4] = 460.2679961517268;
         K[5] = 169.80766383231037; // pico zense
+    }
+    if (camera_type.compare(camera_type_nyu) == 0)
+    {
+
+        K[0] = 582.62448167737955;
+        K[2] = 313.04475870804731;
+        K[4] = 582.69103270988637;
+        K[5] = 238.44389626620386; // nyu v2
+    }
+    if (camera_type.compare(camera_type_kitti) == 0)
+    {
+
+        K[0] = 721.5377;
+        K[2] = 609.5593;
+        K[4] = 721.5377;
+        K[5] = 149.854; // kitti - average
     }
     double fx = K[0];
     double fy = K[4];

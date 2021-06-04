@@ -29,17 +29,36 @@ int main(int argc, char **argv)
     sprintf(file_normal, "%s%s", ndir.c_str(), nfilename.c_str());
     char file_pcd[200];
     dfilename = dfilename.substr(0, dfilename.size() - 4);
-    sprintf(file_pcd, "%s%s_normal.pcd", pcddir.c_str(), dfilename.c_str());
+    sprintf(file_pcd, "%s%s.pcd", pcddir.c_str(), dfilename.c_str());
 
     std::string camera_type = argv[6];
     std::string camera_type_pico = "pico";
+    std::string camera_type_nyu = "nyu";
+    std::string camera_type_kitti = "kitti";
     double K[9] = {582.62448167737955, 0.0, 313.04475870804731, 0.0, 582.69103270988637, 238.44389626620386, 0.0, 0.0, 1.0}; // nyu_v2_dataset
     if (camera_type.compare(camera_type_pico) == 0)
     {
+
         K[0] = 460.58518931365654;
         K[2] = 334.0805877590529;
         K[4] = 460.2679961517268;
         K[5] = 169.80766383231037; // pico zense
+    }
+    if (camera_type.compare(camera_type_nyu) == 0)
+    {
+
+        K[0] = 582.62448167737955;
+        K[2] = 313.04475870804731;
+        K[4] = 582.69103270988637;
+        K[5] = 238.44389626620386; // nyu v2
+    }
+    if (camera_type.compare(camera_type_kitti) == 0)
+    {
+
+        K[0] = 721.5377;
+        K[2] = 609.5593;
+        K[4] = 721.5377;
+        K[5] = 149.854; // kitti - average
     }
     double fx = K[0];
     double fy = K[4];

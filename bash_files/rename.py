@@ -5,9 +5,9 @@ import shutil
 
 
 parser = argparse.ArgumentParser(description='Process some integers.')
-parser.add_argument('--dir', default="/media/rambo/ssd2/Szilard/nyu_v2_filter/dataset_plane/pcd_vox/",
+parser.add_argument('--dir', default="/media/rambo/ssd2/Szilard/kitti/tofnest/depth/",
                     help='the directory to the source files')
-parser.add_argument('--ext', default=".pcd",
+parser.add_argument('--ext', default=".png",
                     help='the extension of file')
 parser.add_argument('--ending', default="",
                     help='the ending name of a file')

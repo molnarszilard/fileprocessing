@@ -28,15 +28,20 @@ int main(int argc, char *argv[])
 
     string content = "";
     string normals = "";
-    int i = 0;
+    float outlier;
     while (getline(xyz_file, content))
     {
-        boost::split(result, content, [](char c) { return c == ' '; });
+        boost::split(result, content, [](char c)
+                     { return c == ' '; });
         p.x = stof(result[0]);
         p.y = stof(result[1]);
         p.z = stof(result[2]);
-        cloud.points.push_back(p);
-        i++;
+
+        outlier = stof(result[3]);
+        if (outlier < 0.001)
+        {
+            cloud.points.push_back(p);
+        }
     }
 
     cloud.width = cloud.points.size();

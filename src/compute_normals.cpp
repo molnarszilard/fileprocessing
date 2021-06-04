@@ -36,7 +36,7 @@ void compute_surface_normals(pcl::PointCloud<pcl::PointXYZ>::Ptr &points, float 
 
   // Estimate the surface normals and store the result in "normals_out"
   norm_est.compute(*normals_out);
-  std::cout << "time:"<< float( clock () - begin_time ) /  CLOCKS_PER_SEC <<std::endl;
+  std::cout << "time:" << float(clock() - begin_time) / CLOCKS_PER_SEC << std::endl;
 }
 
 void visualize_normals(const pcl::PointCloud<pcl::PointXYZ>::Ptr points,
@@ -57,12 +57,14 @@ void visualize_normals(const pcl::PointCloud<pcl::PointXYZ>::Ptr points,
 int main(int argc, char **argv)
 {
   // Load data from pcd
-  
+
   bool visualize = false;
   pcl::PointCloud<pcl::PointXYZ>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZ>);
-  std::string filename = argv[1];
-  std::cout << "Processing: "<< filename <<std::endl;
-  if (pcl::io::loadPCDFile<pcl::PointXYZ>(filename, *cloud) == -1) //* load the file
+  std::string indir = argv[1];
+  std::string outdir = argv[2];
+  std::string filename = argv[3];
+  std::cout << "Processing: " << filename << std::endl;
+  if (pcl::io::loadPCDFile<pcl::PointXYZ>(indir + filename, *cloud) == -1) //* load the file
   {
     PCL_ERROR("Couldn't read file \n");
     return (-1);
@@ -71,7 +73,7 @@ int main(int argc, char **argv)
   // Point Clouds to hold output
   pcl::PointCloud<pcl::PointXYZ>::Ptr downsampled(new pcl::PointCloud<pcl::PointXYZ>);
   pcl::PointCloud<pcl::Normal>::Ptr normals(new pcl::PointCloud<pcl::Normal>);
-const float normal_radius = atof(argv[2]);
+  const float normal_radius = atof(argv[4]);
   if (visualize)
   { // Downsample the cloud
     //const float voxel_grid_leaf_size = 0.01;
@@ -104,7 +106,7 @@ const float normal_radius = atof(argv[2]);
     cloudnormals.height = 1;
     cloudnormals.points.resize(cloudnormals.width * cloudnormals.height);
     cloudnormals.is_dense = false;
-    pcl::io::savePCDFile(filename + "_normal.pcd", cloudnormals, true);
+    pcl::io::savePCDFile(outdir + filename + "_normal.pcd", cloudnormals, true);
     cout << "[*] Conversion finished!" << endl;
   }
 
