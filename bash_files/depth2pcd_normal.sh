@@ -4,9 +4,10 @@ basedir=/media/rambo/ssd2/Szilard/c24/640x480/
 # basedir=/media/rambo/ssd2/Szilard/pico_tofnest/
 # basedir=/media/rambo/ssd2/Szilard/nyu_tofnest/
 # basedir=/media/rambo/ssd2/Szilard/lenssen_tofnest/
-ddir=$basedir'aug/depth3/test/'
-ndir=$basedir'aug/rgb/test/'
+ddir=$basedir'depth2/'
+ndir=$basedir'predictions/'
 pcddir=$basedir'pcdpred/'
+camera="isaac" #pico, nyu, kitti, isaac
 
 if [[ ! -z "$1" ]] 
 then 
@@ -41,5 +42,5 @@ for i in "${!arrD[@]}"; do
     dfilename="${arrD[i]}"
     nfilename="${arrN[i]}"
     echo $ndir$dfilename
-    ./depth2pcd_normal $ddir $ndir $pcddir $dfilename $nfilename isaac480
+    ./depth2pcd_normal $ddir $ndir $pcddir $dfilename $nfilename $camera
 done

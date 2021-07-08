@@ -3,7 +3,7 @@ builddir=$PWD'/../build/'
 ddir=/home/szilard/projects/tofclean/dataset/evaluation/depth/
 mdir=/home/szilard/projects/tofclean/dataset/evaluation/depth_pred/
 pcddir=/home/szilard/projects/tofclean/dataset/evaluation/pcd_pred/
-
+camera="isaac" #pico, nyu, kitti, isaac
 if [[ ! -z "$1" ]] 
 then 
     ddir=$1
@@ -36,5 +36,5 @@ cd $builddir
 for i in "${!arrD[@]}"; do
     dfilename="${arrD[i]}"
     mfilename="${arrM[i]}"
-    ./depthmask2pcd $ddir $mdir $pcddir $dfilename $mfilename nyu
+    ./depthmask2pcd $ddir $mdir $pcddir $dfilename $mfilename $camera
 done

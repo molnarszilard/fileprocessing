@@ -87,6 +87,7 @@ int main(int argc, char **argv)
     std::string camera_type_pico = "pico";
     std::string camera_type_nyu = "nyu";
     std::string camera_type_kitti = "kitti";
+    std::string camera_type_isaac = "isaac";
     double K[9] = {582.62448167737955, 0.0, 313.04475870804731, 0.0, 582.69103270988637, 238.44389626620386, 0.0, 0.0, 1.0}; // nyu_v2_dataset
     if (camera_type.compare(camera_type_pico) == 0)
     {
@@ -112,8 +113,17 @@ int main(int argc, char **argv)
         K[4] = 721.5377;
         K[5] = 149.854; // kitti - average
     }
-    int height = atoi(argv[9]);
-    int width = atoi(argv[10]);
+
+    if (camera_type.compare(camera_type_isaac) == 0)
+    {
+
+        K[0] = 581.8181762695312;
+        K[2] = 320.0;
+        K[4] = 581.8181762695312;
+        K[5] = 240.0; //isaac
+    }
+    int height = 480;
+    int width = 640;
     int count = start;
     int cnt = 0;
     float avg_missing = 0;

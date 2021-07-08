@@ -35,8 +35,7 @@ int main(int argc, char **argv)
     std::string camera_type_pico = "pico";
     std::string camera_type_nyu = "nyu";
     std::string camera_type_kitti = "kitti";
-    std::string camera_type_isaac480 = "isaac480";
-    std::string camera_type_isaac360 = "isaac360";
+    std::string camera_type_isaac = "isaac";
     double K[9] = {582.62448167737955, 0.0, 313.04475870804731, 0.0, 582.69103270988637, 238.44389626620386, 0.0, 0.0, 1.0}; // nyu_v2_dataset
     if (camera_type.compare(camera_type_pico) == 0)
     {
@@ -63,22 +62,13 @@ int main(int argc, char **argv)
         K[5] = 149.854; // kitti - average
     }
 
-    if (camera_type.compare(camera_type_isaac480) == 0)
+    if (camera_type.compare(camera_type_isaac) == 0)
     {
 
         K[0] = 581.8181762695312;
         K[2] = 320.0;
         K[4] = 581.8181762695312;
-        K[5] = 240.0; // kitti - average
-    }
-
-    if (camera_type.compare(camera_type_isaac360) == 0)
-    {
-
-        K[0] = 732.999267578125;
-        K[2] = 180.0;
-        K[4] = 732.999267578125;
-        K[5] = 320.0; // kitti - average
+        K[5] = 240.0; //isaac
     }
     double fx = K[0];
     double fy = K[4];
@@ -114,9 +104,14 @@ int main(int argc, char **argv)
                 nan = true;
             if (!nan)
             {
-                p.normal_x = (double)(mat_normal.ptr(i, j)[2] * 2.0 / 255.0 - 1.0);
-                p.normal_y = (double)(mat_normal.ptr(i, j)[1] * 2.0 / 255.0 - 1.0);
-                p.normal_z = (double)(mat_normal.ptr(i, j)[0] * 2.0 / 255.0 - 1.0);
+                Eigen::Vector3f vector;
+                vector[0] = (double)(mat_normal.ptr(i, j)[2] * 2.0 / 255.0 - 1.0);
+                vector[1] = (double)(mat_normal.ptr(i, j)[1] * 2.0 / 255.0 - 1.0);
+                vector[2] = (double)(mat_normal.ptr(i, j)[0] * 2.0 / 255.0 - 1.0);
+                vector.normalize();
+                p.normal_x = vector[0];
+                p.normal_y = vector[1];
+                p.normal_z = vector[2];
                 cloud_msg.points.push_back(p);
             }
             nan = false;

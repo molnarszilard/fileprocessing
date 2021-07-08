@@ -3,7 +3,7 @@ builddir=$PWD'/../build/'
 ddir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/own/working/xyz/
 ndir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/own/working/normal/
 pcddir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/own/working/pcd/
-
+camera="isaac" #pico, nyu, kitti, isaac
 if [[ ! -z "$1" ]] 
 then 
     ddir=$1
@@ -36,5 +36,5 @@ cd $builddir
 for i in "${!arrD[@]}"; do
     dfilename="${arrD[i]}"
     nfilename="${arrN[i]}"
-    ./depthn2pcd_normal $ddir $ndir $pcddir $dfilename $nfilename kitti
+    ./depthn2pcd_normal $ddir $ndir $pcddir $dfilename $nfilename $camera
 done

@@ -115,7 +115,7 @@ int main(int argc, char *argv[])
     while (count < end)
     {
         float rms = compare(count, gtdir, preddir, gtending, predending);
-        int ind = (int)(rms * 10);
+        int ind = round(rms * 10);
         if (ind >= 1000)
             ind = 999;
         histogram[ind]++;

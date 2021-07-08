@@ -3,9 +3,9 @@ builddir=$PWD'/../build/'
 # basedir=/media/rambo/ssd2/Szilard/c24/640x480/
 # basedir=/media/rambo/ssd2/Szilard/pico_tofnest/
 basedir=/media/rambo/ssd2/Szilard/nyu_tofnest/
-ddir=$basedir'depth/'
-pcddir=$basedir'pcdord/'
-camera="isaac" #pico, nyu, kitti, isaac
+ddir=$basedir'pcdnormals/'
+normaldir=$basedir'normalimages/'
+camera="nyu" #pico, nyu, kitti, isaac
 
 if [[ ! -z "$1" ]] 
 then 
@@ -17,8 +17,8 @@ then
 fi
 cd $ddir
 
-for filename in *.png; do
+for filename in *.pcd; do
     cd $builddir
     # path
-    ./depth2orderedpcd $ddir $pcddir $filename $camera
+    ./pcdnormal2normalimage $ddir $normaldir $filename $camera
 done

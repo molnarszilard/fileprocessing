@@ -1,5 +1,6 @@
 #!bin/bash
 builddir=$PWD'/../build/'
+camera="isaac" #pico, nyu, kitti, isaac
 
 # path, leaf size, meanK, StddevMulThresh
 histo=histogram_$1.txt
@@ -38,7 +39,7 @@ case $2 in
     pcd)
         echo pcd
         predending=.pcd
-        ./pw_pcdcompare $gtdir $preddir $gtending $predending $start $end $step nyu 480 640
+        ./pw_pcdcompare $gtdir $preddir $gtending $predending $start $end $step $camera
         ;;
     *)
         predending=.png

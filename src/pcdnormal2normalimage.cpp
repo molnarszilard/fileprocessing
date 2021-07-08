@@ -1,27 +1,31 @@
-#include <opencv2/core.hpp>
+#include <boost/algorithm/string.hpp>
+#include <ctime>
+#include <fstream>
+#include <iostream>
 #include <opencv2/core/core.hpp>
-#include <opencv2/highgui.hpp>
 #include <opencv2/highgui/highgui.hpp>
-#include <opencv2/imgcodecs.hpp>
-#include <opencv2/imgproc.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <pcl/common/eigen.h>
-#include <pcl/filters/extract_indices.h>
+#include <pcl/features/integral_image_normal.h>
+#include <pcl/features/normal_3d.h>
+#include <pcl/filters/voxel_grid.h>
 #include <pcl/io/pcd_io.h>
-#include <pcl/ModelCoefficients.h>
+#include <pcl/kdtree/kdtree_flann.h>
+#include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
-#include <pcl/range_image/range_image_planar.h>
-#include <pcl/sample_consensus/method_types.h>
-#include <pcl/sample_consensus/model_types.h>
-#include <pcl/segmentation/sac_segmentation.h>
+#include <pcl/search/impl/search.hpp>
+#include <pcl/visualization/pcl_visualizer.h>
+#include <string>
+#include <thread>
 
 using namespace cv;
 using namespace std;
 
+int min_points = 0;
+
 int main(int argc, char **argv)
 {
-    // calibration parameters
-    std::string camera_type = argv[6];
+    std::string camera_type = argv[4];
     std::string camera_type_pico = "pico";
     std::string camera_type_nyu = "nyu";
     std::string camera_type_kitti = "kitti";
@@ -60,46 +64,67 @@ int main(int argc, char **argv)
         K[4] = 581.8181762695312;
         K[5] = 240.0; //isaac
     }
-
     double fx = K[0];
     double fy = K[4];
     double x0 = K[2];
     double y0 = K[5];
+
+    std::string ddir = argv[1];
+    std::string normaldir = argv[2];
+    std::string filename = argv[3];
     int height_ = 480;
     int width_ = 640;
-    int pixel_pos_x, pixel_pos_y;
-    float z, u, v;
-    cv::Mat cv_image;
-    std::vector<Point2d> imagePoints;
 
-    pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZRGB>);
-    std::string indir = argv[1];
-    std::string outdir = argv[2];
-    std::string filename = argv[3];
-    std::cout << filename << std::endl;
-    if (pcl::io::loadPCDFile<pcl::PointXYZRGB>(indir + filename, *cloud) == -1) //* load the file
+    char file_in[200];
+    char file_out[200];
+
+    sprintf(file_in, "%s%s", ddir.c_str(), filename.c_str());
+    filename = filename.substr(0, filename.size() - 3);
+    sprintf(file_out, "%s%spng", normaldir.c_str(), filename.c_str());
+    printf("Processing file - %s\n", file_in);
+
+    pcl::PointCloud<pcl::PointNormal>::Ptr cloud(new pcl::PointCloud<pcl::PointNormal>);
+    if (pcl::io::loadPCDFile<pcl::PointNormal>(file_in, *cloud) == -1) //* load the file
     {
         PCL_ERROR("Couldn't read file \n");
         return (-1);
     }
-    std::cout << "PointCloud has: " << cloud->size() << " data points." << std::endl;
+    std::cout << "PointCloud has: " << cloud->size() << " data points." << std::endl; //*
+
     cv::Mat output = cv::Mat::zeros(height_, width_, CV_8UC3);
-    for (int i = 0; i < cloud->points.size(); i++)
+    pcl::PointNormal pn;
+    bool nan = false;
+    int pixel_pos_x, pixel_pos_y;
+    float z, u, v;
+    for (int i = 0; i < cloud->size(); i++)
     {
-        bool nan = false;
-        if (isnan(cloud->points[i].r) || isnan(cloud->points[i].g) || isnan(cloud->points[i].b) || isnan(cloud->points[i].x) || isnan(cloud->points[i].y) || isnan(cloud->points[i].z))
-            nan = true;
-        if (isinf(cloud->points[i].r) || isinf(cloud->points[i].g) || isinf(cloud->points[i].b) || isinf(cloud->points[i].x) || isinf(cloud->points[i].y) || isinf(cloud->points[i].z))
-            nan = true;
-        if (cloud->points[i].z <= 20 / 1000)
+        pn.x = cloud->points[i].x;
+        pn.y = cloud->points[i].y;
+        pn.z = cloud->points[i].z;
+        pn.normal_x = cloud->points[i].normal_x;
+        pn.normal_y = cloud->points[i].normal_y;
+        pn.normal_z = cloud->points[i].normal_z;
+        if (pn.x != pn.x || pn.y != pn.y || pn.z != pn.z || std::isnan(pn.x) || std::isnan(pn.y) || std::isnan(pn.z))
             nan = true;
         if (!nan)
         {
-            uint32_t rgb = cloud->points[i].rgb;
-            uint8_t r = cloud->points[i].r;
-            uint8_t g = cloud->points[i].g;
-            uint8_t b = cloud->points[i].b;
 
+            uint8_t r, g, b;
+            double r0 = cloud->points[i].normal_x;
+            double g0 = cloud->points[i].normal_y;
+            double b0 = cloud->points[i].normal_z;
+            Eigen::Vector3f vector;
+            vector[0] = r0;
+            vector[1] = g0;
+            vector[2] = b0;
+            vector.normalize();
+            vector[0] = (vector[0] + 1) / 2*255;
+            vector[1] = (vector[1] + 1) / 2*255;
+            vector[2] = (vector[2] + 1) / 2*255;
+            
+            r = round(vector[0]);
+            g = round(vector[1]);
+            b = round(vector[2]);
             z = cloud->points[i].z * 1000.0;
             u = (cloud->points[i].x * 1000.0 * fx) / z;
             v = (cloud->points[i].y * 1000.0 * fy) / z;
@@ -127,8 +152,8 @@ int main(int argc, char **argv)
             output.at<Vec3b>(pixel_pos_y, pixel_pos_x)[1] = g;
             output.at<Vec3b>(pixel_pos_y, pixel_pos_x)[2] = r;
         }
+        nan = false;
     }
-    waitKey(3);
-    filename = filename.substr(0, filename.size() - 3);
-    imwrite(outdir + filename + "png", output);
+    imwrite(file_out, output);
+    return 0;
 }

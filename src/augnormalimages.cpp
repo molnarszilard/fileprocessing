@@ -13,10 +13,12 @@
 using namespace std;
 using namespace cv;
 
-char directory[100] = "/media/rambo/ssd2/Szilard/c24/640x480/";
+// char directory[100] = "/media/rambo/ssd2/Szilard/c24/640x480/";
+// char directory[100] = "/media/rambo/ssd2/Szilard/lenssen_tofnest/";
+char directory[100] = "/media/rambo/ssd2/Szilard/nyu_tofnest/";
 int cnt = 0;
 int counter = 0;
-int max_nr = 700;
+int max_nr = 1449;
 
 void depth_normals_to_pcdnormals()
 {
@@ -33,29 +35,52 @@ void depth_normals_to_pcdnormals()
     {
         for (int j = 0; j < normal.cols; j++)
         {
-
             output1.at<Vec3b>(i, j)[2] = normal.ptr(i, j)[2];
             output1.at<Vec3b>(i, j)[1] = normal.ptr(i, j)[1];
             output1.at<Vec3b>(i, j)[0] = normal.ptr(i, j)[0];
+            if (normal.ptr(i, j)[2] == 0 && normal.ptr(i, j)[1] == 0 && normal.ptr(i, j)[0] == 0)
+            {
+                double normal_x = (double)(normal.ptr(i, j)[2] * 2.0 / 255.0 - 1.0);
+                double normal_y = (double)(normal.ptr(i, j)[1] * 2.0 / 255.0 - 1.0);
+                double normal_z = (double)(normal.ptr(i, j)[0] * 2.0 / 255.0 - 1.0);
+                uint8_t r, g, b;
 
-            double normal_x = (double)(normal.ptr(i, j)[2] * 2.0 / 255.0 - 1.0);
-            double normal_y = (double)(normal.ptr(i, j)[1] * 2.0 / 255.0 - 1.0);
-            double normal_z = (double)(normal.ptr(i, j)[0] * 2.0 / 255.0 - 1.0);
-            uint8_t r, g, b;
+                r = round((normal_x + 1) / 2 * 255);
+                g = round((normal_y + 1) / 2 * 255);
+                b = round((normal_z + 1) / 2 * 255);
+                output2.at<Vec3b>(i, normal.cols - j - 1)[0] = b;
+                output2.at<Vec3b>(i, normal.cols - j - 1)[1] = g;
+                output2.at<Vec3b>(i, normal.cols - j - 1)[2] = r;
 
-            r = (int)((-normal_x + 1) / 2 * 255);
-            g = (int)((normal_y + 1) / 2 * 255);
-            b = (int)((normal_z + 1) / 2 * 255);
-            output2.at<Vec3b>(i, normal.cols - j - 1)[0] = b;
-            output2.at<Vec3b>(i, normal.cols - j - 1)[1] = g;
-            output2.at<Vec3b>(i, normal.cols - j - 1)[2] = r;
+                r = round((normal_x + 1) / 2 * 255);
+                g = round((normal_y + 1) / 2 * 255);
+                b = round((normal_z + 1) / 2 * 255);
+                output3.at<Vec3b>(normal.rows - i - 1, j)[0] = b;
+                output3.at<Vec3b>(normal.rows - i - 1, j)[1] = g;
+                output3.at<Vec3b>(normal.rows - i - 1, j)[2] = r;
+            }
+            else
+            {
 
-            r = (int)((normal_x + 1) / 2 * 255);
-            g = (int)((-normal_y + 1) / 2 * 255);
-            b = (int)((normal_z + 1) / 2 * 255);
-            output3.at<Vec3b>(normal.rows - i - 1, j)[0] = b;
-            output3.at<Vec3b>(normal.rows - i - 1, j)[1] = g;
-            output3.at<Vec3b>(normal.rows - i - 1, j)[2] = r;
+                double normal_x = (double)(normal.ptr(i, j)[2] * 2.0 / 255.0 - 1.0);
+                double normal_y = (double)(normal.ptr(i, j)[1] * 2.0 / 255.0 - 1.0);
+                double normal_z = (double)(normal.ptr(i, j)[0] * 2.0 / 255.0 - 1.0);
+                uint8_t r, g, b;
+
+                r = round((-normal_x + 1) / 2 * 255);
+                g = round((normal_y + 1) / 2 * 255);
+                b = round((normal_z + 1) / 2 * 255);
+                output2.at<Vec3b>(i, normal.cols - j - 1)[0] = b;
+                output2.at<Vec3b>(i, normal.cols - j - 1)[1] = g;
+                output2.at<Vec3b>(i, normal.cols - j - 1)[2] = r;
+
+                r = round((normal_x + 1) / 2 * 255);
+                g = round((-normal_y + 1) / 2 * 255);
+                b = round((normal_z + 1) / 2 * 255);
+                output3.at<Vec3b>(normal.rows - i - 1, j)[0] = b;
+                output3.at<Vec3b>(normal.rows - i - 1, j)[1] = g;
+                output3.at<Vec3b>(normal.rows - i - 1, j)[2] = r;
+            }
         }
     }
     char file_out1[200];

@@ -78,8 +78,8 @@ cv::Mat createDepth(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud, double K[], int R
             double z = cloud->points[i].z * 1000.0;
             double u = (cloud->points[i].x * 1000.0 * fx) / z;
             double v = (cloud->points[i].y * 1000.0 * fy) / z;
-            int pixel_pos_x = (int)(u + x0);
-            int pixel_pos_y = (int)(v + y0);
+            int pixel_pos_x = round(u + x0);
+            int pixel_pos_y = round(v + y0);
 
             if (pixel_pos_x < 0)
             {
@@ -110,6 +110,7 @@ int main(int argc, char **argv)
     std::string camera_type_pico = "pico";
     std::string camera_type_nyu = "nyu";
     std::string camera_type_kitti = "kitti";
+    std::string camera_type_isaac = "isaac";
     double K[9] = {582.62448167737955, 0.0, 313.04475870804731, 0.0, 582.69103270988637, 238.44389626620386, 0.0, 0.0, 1.0}; // nyu_v2_dataset
     if (camera_type.compare(camera_type_pico) == 0)
     {
@@ -134,6 +135,15 @@ int main(int argc, char **argv)
         K[2] = 609.5593;
         K[4] = 721.5377;
         K[5] = 149.854; // kitti - average
+    }
+
+    if (camera_type.compare(camera_type_isaac) == 0)
+    {
+
+        K[0] = 581.8181762695312;
+        K[2] = 320.0;
+        K[4] = 581.8181762695312;
+        K[5] = 240.0; //isaac
     }
     int meanK = atoi(argv[5]);
     int stddevMulThresh = atof(argv[6]);

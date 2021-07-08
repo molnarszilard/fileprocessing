@@ -11,6 +11,10 @@ parser.add_argument('--ext', default=".pcd",
                     help='the extension of file')
 parser.add_argument('--ending', default=".pcd",
                     help='the ending name of a file')
+parser.add_argument('--number', default=0, type=int,
+                    help='start of the numbering')
+parser.add_argument('--copy', default=False, type=bool,
+                    help='move or copy')
 args = parser.parse_args()
 
 directory=args.dir
@@ -19,16 +23,14 @@ dlist=os.listdir(directory)
 dlist.sort()
 extension = args.ext
 
-n=0
+n=args.number
 for filename in dlist:
     if filename.endswith(extension):
         number=f'{n:05d}'
-        shutil.move(directory+filename,directory+number+args.ending)
-        # shutil.copy2(directory+filename,directory+number+args.ending)
+        if args.copy:
+            shutil.copy2(directory+filename,directory+number+args.ending)
+        else:
+            shutil.move(directory+filename,directory+number+args.ending)
         n=n+1
     else:
         continue
-
-# f = open(directory+"filelist.txt", "r")
-# for x in f:
-#   shutil.copy2(directory+"rgb/"+x[:-1]+"_rgb.png",directory+x[:-1]+"_rgb.png")

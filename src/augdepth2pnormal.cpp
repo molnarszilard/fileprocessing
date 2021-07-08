@@ -20,12 +20,11 @@ int max_nr = 700;
 
 void depth_normals_to_pcdnormals()
 {
-    std::string camera_type = "isaac480";
+    std::string camera_type = "isaac";
     std::string camera_type_pico = "pico";
     std::string camera_type_nyu = "nyu";
     std::string camera_type_kitti = "kitti";
-    std::string camera_type_isaac480 = "isaac480";
-    std::string camera_type_isaac360 = "isaac360";
+    std::string camera_type_isaac = "isaac";
     double K[9] = {582.62448167737955, 0.0, 313.04475870804731, 0.0, 582.69103270988637, 238.44389626620386, 0.0, 0.0, 1.0}; // nyu_v2_dataset
     if (camera_type.compare(camera_type_pico) == 0)
     {
@@ -52,23 +51,15 @@ void depth_normals_to_pcdnormals()
         K[5] = 149.854; // kitti - average
     }
 
-    if (camera_type.compare(camera_type_isaac480) == 0)
+    if (camera_type.compare(camera_type_isaac) == 0)
     {
 
-        K[0] = 732.9993286132812;
+        K[0] = 581.8181762695312;
         K[2] = 320.0;
-        K[4] = 732.999267578125;
-        K[5] = 240.0; // kitti - average
+        K[4] = 581.8181762695312;
+        K[5] = 240.0; //isaac
     }
 
-    if (camera_type.compare(camera_type_isaac360) == 0)
-    {
-
-        K[0] = 732.999267578125;
-        K[2] = 180.0;
-        K[4] = 732.999267578125;
-        K[5] = 320.0; // kitti - average
-    }
     double fx = K[0];
     double fy = K[4];
     double x0 = K[2];

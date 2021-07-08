@@ -3,21 +3,23 @@ builddir=$PWD'/../build/'
 basedir=/media/rambo/ssd2/Szilard/c24/640x480/
 # basedir=/media/rambo/ssd2/Szilard/pico_tofnest/
 # basedir=/media/rambo/ssd2/Szilard/nyu_tofnest/
-input_dir=$basedir'pcd/'
-output_dir=$basedir'pcdpred/'
-normalradius=1.0
+ddir=$basedir'aug/depth/'
+normaldir=$basedir'aug/rgb/'
+camera="isaac" #pico, nyu, kitti, isaac
+supportsize=1.0
 
 if [[ ! -z "$1" ]] 
 then 
-    input_dir=$1
+    ddir=$1
     if [[ ! -z "$2" ]] 
     then 
-        output_dir=$2
+        pcddir=$2
     fi
 fi
-cd $input_dir
+cd $ddir
 
-for filename in *.pcd; do
+for filename in *.png; do
     cd $builddir
-    ./compute_normals $input_dir $output_dir $filename $normalradius
+    # path
+    ./compute_normals_image $ddir $normaldir $filename $camera $supportsize
 done

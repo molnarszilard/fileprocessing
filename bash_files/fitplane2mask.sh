@@ -2,7 +2,7 @@
 builddir=$PWD'/../build/'
 ddir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/own/working/depthpred/
 mdir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/own/working/mask/
-
+camera="isaac" #pico, nyu, kitti, isaac
 if [[ ! -z "$1" ]] 
 then 
     ddir=$1
@@ -12,5 +12,5 @@ cd $ddir
 for filename in *.png; do
     cd $builddir
     # depth directory, mask directory, filename
-    ./fitplane2mask $ddir $mdir $filename nyu
+    ./fitplane2mask $ddir $mdir $filename $camera
 done

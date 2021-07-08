@@ -45,7 +45,7 @@ for i in range(len(images)):
     image_name=images[i]
     filename=f'{n:05d}'
     print(filename)
-    if n%4 == 0 :
+    if n%3 == 0 :
         # cv2.imwrite(directory+"test/"+filename+".png", image.astype(np.uint16)) 
         shutil.move(directory+image_name,directory+"test/"+filename+".png")
     else:

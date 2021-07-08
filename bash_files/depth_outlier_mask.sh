@@ -4,6 +4,7 @@ ddir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/own/predv48/predictions_
 mdir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/own/mask/
 meanK=50
 stddevMulThresh=1.0
+camera="isaac" #pico, nyu, kitti, isaac
 
 if [[ ! -z "$1" ]] 
 then 
@@ -14,5 +15,5 @@ cd $ddir
 for filename in *.png; do
     cd $builddir
     # path,cameratype
-    ./depth_outlier_mask $ddir $mdir $filename nyu $meanK $stddevMulThresh
+    ./depth_outlier_mask $ddir $mdir $filename $camera $meanK $stddevMulThresh
 done

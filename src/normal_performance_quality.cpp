@@ -183,7 +183,7 @@ int main(int argc, char *argv[])
     {
         double q = compare(count, gtdir, preddir, deltadir, gtending, predending);
         printf("%f\n", q);
-        int ind = (int)(q * 100);
+        int ind = round(q * 100);
         if (ind >= 100)
             ind = 99;
         histogram[ind]++;
