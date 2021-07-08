@@ -1,8 +1,8 @@
 #!bin/bash
 builddir=$PWD'/../build/'
-gtdir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/own/working/maskgt/
-preddir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/own/working/mask/
-outdir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/own/working/mask_diff/
+gtdir=$PWD'/../../dataset/evaluation/maskgt/'
+preddir=$PWD'/../../dataset/evaluation/mask/'
+outdir=$PWD'/../../dataset/evaluation/mask_diff/'
 
 if [[ ! -z "$1" ]] 
 then 

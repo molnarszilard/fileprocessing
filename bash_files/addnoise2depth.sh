@@ -1,10 +1,10 @@
 #!bin/bash
 
 builddir=$PWD'/../build/'
-default_dir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/pcndepth/ # path to input file directory
+default_dir=/media/rambo/ssd2/Szilard/c24/640x480/aug/depth/ # path to input file directory
 default_iext=.png # find the files with these extension
-default_od=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/pcndepth/ # 
-default_sigma=100
+default_od=/media/rambo/ssd2/Szilard/c24/640x480/aug/ndepth/ # 
+default_sigma=1000
 
 if [[ ! -z "$1" ]] 
 then 

@@ -1,7 +1,10 @@
 #!bin/bash
 builddir=$PWD'/../build/'
-input_dir=/media/rambo/ssd2/Szilard/nyu_v2_filter/dataset_plane/pcd/
-output_dir=/media/rambo/ssd2/Szilard/nyu_v2_filter/dataset_plane/pcd_vox/
+basedir=/media/rambo/ssd2/Szilard/c24/640x480/
+# basedir=/media/rambo/ssd2/Szilard/pico_tofnest/
+# basedir=/media/rambo/ssd2/Szilard/nyu_tofnest/
+input_dir=$basedir'pcd/'
+output_dir=$basedir'pcdnormals/'
 normalradius=1.0
 
 if [[ ! -z "$1" ]] 
@@ -14,7 +17,7 @@ then
 fi
 cd $input_dir
 
-for filename in *.pcd; do
+for filename in 00{5,6,7}*.pcd; do
     cd $builddir
     ./compute_normals $input_dir $output_dir $filename $normalradius
 done

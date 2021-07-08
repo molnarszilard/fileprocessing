@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
         p.z = stof(result[2]);
 
         outlier = stof(result[3]);
-        if (outlier < 0.001)
+        if (outlier < 0.5)
         {
             cloud.points.push_back(p);
         }

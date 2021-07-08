@@ -1,8 +1,12 @@
 #!bin/bash
 builddir=$PWD'/../build/'
-ddir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/own/working/depthpred/
-ndir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/own/working/normal/
-pcddir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/own/working/pcdpred/
+basedir=/media/rambo/ssd2/Szilard/c24/640x480/
+# basedir=/media/rambo/ssd2/Szilard/pico_tofnest/
+# basedir=/media/rambo/ssd2/Szilard/nyu_tofnest/
+# basedir=/media/rambo/ssd2/Szilard/lenssen_tofnest/
+ddir=$basedir'aug/depth3/test/'
+ndir=$basedir'aug/rgb/test/'
+pcddir=$basedir'pcdpred/'
 
 if [[ ! -z "$1" ]] 
 then 
@@ -37,5 +41,5 @@ for i in "${!arrD[@]}"; do
     dfilename="${arrD[i]}"
     nfilename="${arrN[i]}"
     echo $ndir$dfilename
-    ./depth2pcd_normal $ddir $ndir $pcddir $dfilename $nfilename kitti
+    ./depth2pcd_normal $ddir $ndir $pcddir $dfilename $nfilename isaac480
 done

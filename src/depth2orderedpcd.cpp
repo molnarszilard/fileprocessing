@@ -15,23 +15,11 @@
 
 using namespace std;
 
+int min_points = 0;
+
 int main(int argc, char **argv)
 {
-    std::string ddir = argv[1];
-    std::string ndir = argv[2];
-    std::string pcddir = argv[3];
-    std::string dfilename = argv[4];
-    std::string nfilename = argv[5];
-
-    char file_depth[200];
-    sprintf(file_depth, "%s%s", ddir.c_str(), dfilename.c_str());
-    char file_normal[200];
-    sprintf(file_normal, "%s%s", ndir.c_str(), nfilename.c_str());
-    char file_pcd[200];
-    dfilename = dfilename.substr(0, dfilename.size() - 4);
-    sprintf(file_pcd, "%s%s.pcd", pcddir.c_str(), dfilename.c_str());
-
-    std::string camera_type = argv[6];
+    std::string camera_type = argv[4];
     std::string camera_type_pico = "pico";
     std::string camera_type_nyu = "nyu";
     std::string camera_type_kitti = "kitti";
@@ -85,14 +73,27 @@ int main(int argc, char **argv)
     double x0 = K[2];
     double y0 = K[5];
 
-    // Point Clouds to hold output
-    cv::Mat depth = cv::imread(file_depth, cv::IMREAD_UNCHANGED);
-    cv::Mat normal = cv::imread(file_normal, cv::IMREAD_COLOR);
-    cv::Mat &mat_normal = normal;
+    std::string ddir = argv[1];
+    std::string pcddir = argv[2];
+    std::string filename = argv[3];
 
-    pcl::PointCloud<pcl::PointNormal> cloud_msg;
-    pcl::PointNormal p;
-    bool nan = false;
+    char file_depthin[200];
+    char file_pcd[200];
+
+    sprintf(file_depthin, "%s%s", ddir.c_str(), filename.c_str());
+    filename = filename.substr(0, filename.size() - 3);
+    sprintf(file_pcd, "%s%spcd", pcddir.c_str(), filename.c_str());
+    printf("Processing file - %s\n", file_depthin);
+
+    cv::Mat depth = cv::imread(file_depthin, CV_LOAD_IMAGE_UNCHANGED);
+
+    pcl::PointCloud<pcl::PointXYZ> cloud_msg;
+    pcl::PointXYZ p, pnan;
+    pnan.x = std::nanf("0");
+    pnan.y = std::nanf("0");
+    pnan.z = std::nanf("0");
+    cloud_msg.width = 640;
+    cloud_msg.height = 480;
     for (int i = 0; i < depth.rows; i++)
     {
         for (int j = 0; j < depth.cols; j++)
@@ -102,32 +103,34 @@ int main(int argc, char **argv)
 
             if (d == 0.0)
             {
-                continue;
+                cloud_msg.points.push_back(pnan);
             }
-            float x_over_z = (j - x0) / fx;
-            float y_over_z = (i - y0) / fy;
-            p.z = d;
-            p.x = x_over_z * p.z;
-            p.y = y_over_z * p.z;
-
-            if (p.x != p.x || p.y != p.y || p.z != p.z || std::isnan(p.x) || std::isnan(p.y) || std::isnan(p.z))
-                nan = true;
-            if (!nan)
+            else
             {
-                p.normal_x = (double)(mat_normal.ptr(i, j)[2] * 2.0 / 255.0 - 1.0);
-                p.normal_y = (double)(mat_normal.ptr(i, j)[1] * 2.0 / 255.0 - 1.0);
-                p.normal_z = (double)(mat_normal.ptr(i, j)[0] * 2.0 / 255.0 - 1.0);
+                float x_over_z = (j - x0) / fx;
+                float y_over_z = (i - y0) / fy;
+                p.z = d;
+                p.x = x_over_z * p.z;
+                p.y = y_over_z * p.z;
+
                 cloud_msg.points.push_back(p);
             }
-            nan = false;
         }
     }
-    cloud_msg.width = cloud_msg.points.size();
+
     cout << "Number of points:" << cloud_msg.width << endl;
-    cloud_msg.height = 1;
-    cloud_msg.points.resize(cloud_msg.width * cloud_msg.height);
-    cloud_msg.is_dense = false;
-    pcl::io::savePCDFile(file_pcd, cloud_msg, true);
-    cout << "[*] Conversion finished!" << endl;
+    if (cloud_msg.width > min_points)
+    {
+        cloud_msg.points.resize(cloud_msg.width * cloud_msg.height);
+        cloud_msg.is_dense = false;
+
+        pcl::io::savePCDFile(file_pcd, cloud_msg, false);
+        cout << "[*] Conversion finished!" << endl;
+    }
+    else
+    {
+        cout << "[*] Conversion failed - too few points!" << endl;
+    }
+
     return 0;
 }

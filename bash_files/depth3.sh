@@ -1,7 +1,7 @@
 #!bin/bash
 builddir=$PWD'/../build/'
-ddir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/own/working/depth/
-d3dir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/own/working/depth3/
+ddir=/media/rambo/ssd2/Szilard/c24/640x480/aug/depth/
+d3dir=/media/rambo/ssd2/Szilard/c24/640x480/aug/depth3/
 
 
 if [[ ! -z "$1" ]] 

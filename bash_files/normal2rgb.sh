@@ -1,7 +1,7 @@
 #!bin/bash
 builddir=$PWD'/../build/'
-input_dir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/pcndepth/ # path to input file directory
-output_dir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/pcndepth/ # path to input file directory
+input_dir=/media/rambo/ssd2/Szilard/c24/640x480/pcdnormals/ # path to input file directory
+output_dir=/media/rambo/ssd2/Szilard/c24/640x480/pcdrgb/ # path to input file directory
 
 if [[ ! -z "$1" ]] 
 then 

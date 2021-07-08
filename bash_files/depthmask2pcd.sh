@@ -1,8 +1,8 @@
 #!bin/bash
 builddir=$PWD'/../build/'
-ddir=/media/rambo/ssd2/Szilard/toffilter_nyu/evaluation/
-mdir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/own/working/mask/
-pcddir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/own/working/pcdpredmask/
+ddir=/home/szilard/projects/tofclean/dataset/evaluation/depth/
+mdir=/home/szilard/projects/tofclean/dataset/evaluation/depth_pred/
+pcddir=/home/szilard/projects/tofclean/dataset/evaluation/pcd_pred/
 
 if [[ ! -z "$1" ]] 
 then 

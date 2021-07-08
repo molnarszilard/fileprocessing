@@ -4,11 +4,15 @@
 #include <pcl/filters/voxel_grid.h>
 #include <pcl/kdtree/kdtree_flann.h>
 #include <pcl/features/normal_3d.h>
+#include <pcl/features/normal_3d_omp.h>
+#include <pcl/features/integral_image_normal.h>
 #include <pcl/visualization/pcl_visualizer.h>
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
 #include <pcl/search/impl/search.hpp>
 #include <ctime>
+#include <thread>
+#include <omp.h>
 
 void downsample(pcl::PointCloud<pcl::PointXYZ>::Ptr &points, float leaf_size,
                 pcl::PointCloud<pcl::PointXYZ>::Ptr &downsampled_out)
@@ -22,8 +26,13 @@ void downsample(pcl::PointCloud<pcl::PointXYZ>::Ptr &points, float leaf_size,
 void compute_surface_normals(pcl::PointCloud<pcl::PointXYZ>::Ptr &points, float normal_radius,
                              pcl::PointCloud<pcl::Normal>::Ptr &normals_out)
 {
-  pcl::NormalEstimation<pcl::PointXYZ, pcl::Normal> norm_est;
-  const clock_t begin_time = clock();
+  // Single threaded pcl normal estimation
+  // pcl::NormalEstimation<pcl::PointXYZ, pcl::Normal> norm_est;
+
+  //Multi threaded normal estimation
+  pcl::NormalEstimationOMP<pcl::PointXYZ, pcl::Normal> norm_est;
+  int nr_cores = std::thread::hardware_concurrency();
+  norm_est.setNumberOfThreads(nr_cores);
 
   // Use a FLANN-based KdTree to perform neighborhood searches
   norm_est.setSearchMethod(pcl::search::KdTree<pcl::PointXYZ>::Ptr(new pcl::search::KdTree<pcl::PointXYZ>));
@@ -31,12 +40,20 @@ void compute_surface_normals(pcl::PointCloud<pcl::PointXYZ>::Ptr &points, float 
   // Specify the size of the local neighborhood to use when computing the surface normals
   norm_est.setRadiusSearch(normal_radius);
 
-  // Set the input points
+  // Integral image normal estimation
+  // pcl::IntegralImageNormalEstimation<pcl::PointXYZ, pcl::Normal> norm_est;
+  // norm_est.setNormalEstimationMethod(norm_est.AVERAGE_3D_GRADIENT);
+  // norm_est.setMaxDepthChangeFactor(normal_radius);
+  // norm_est.setNormalSmoothingSize(10.0f);
+
   norm_est.setInputCloud(points);
+  double startTime = omp_get_wtime();
 
   // Estimate the surface normals and store the result in "normals_out"
   norm_est.compute(*normals_out);
-  std::cout << "time:" << float(clock() - begin_time) / CLOCKS_PER_SEC << std::endl;
+  double stopTime = omp_get_wtime();
+  double secsElapsed = stopTime - startTime;
+  std::cout << "time:" << secsElapsed << std::endl;
 }
 
 void visualize_normals(const pcl::PointCloud<pcl::PointXYZ>::Ptr points,
@@ -91,6 +108,7 @@ int main(int argc, char **argv)
     filename = filename.substr(0, filename.size() - 4);
     pcl::PointCloud<pcl::PointNormal> cloudnormals;
     pcl::PointNormal p;
+    bool nan = false;
     for (int i = 0; i < cloud->size(); i++)
     {
       p.x = cloud->points[i].x;
@@ -99,7 +117,11 @@ int main(int argc, char **argv)
       p.normal_x = normals->points[i].normal_x;
       p.normal_y = normals->points[i].normal_y;
       p.normal_z = normals->points[i].normal_z;
-      cloudnormals.points.push_back(p);
+      if (p.x != p.x || p.y != p.y || p.z != p.z || std::isnan(p.x) || std::isnan(p.y) || std::isnan(p.z))
+        nan = true;
+      if (!nan)
+        cloudnormals.points.push_back(p);
+      nan = false;
     }
     cloudnormals.width = cloudnormals.points.size();
     cout << "Number of points:" << cloudnormals.width << endl;

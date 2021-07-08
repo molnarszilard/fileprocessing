@@ -2,48 +2,52 @@
 builddir=$PWD'/../build/'
 
 # path, leaf size, meanK, StddevMulThresh
-histo=histogram_tofnest.txt
+histo=histogram_isaac_self.txt
 start=0
-end=1449
-gtdir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/pcn/
-deltadir=/media/rambo/ssd2/Szilard/nyu_v2_tofnest/tofnest/pcdpred_delta/
+end=700
+basedir=/media/rambo/ssd2/Szilard/c24/640x480/
+# basedir=/media/rambo/ssd2/Szilard/pico_tofnest/
+# basedir=/media/rambo/ssd2/Szilard/nyu_tofnest/
+# basedir=/media/rambo/ssd2/Szilard/lenssen_tofnest/
+gtdir=$basedir'pcdnormals/'
+deltadir=$basedir'pcdpred_delta/'
 gtending=.pcd
-step=1
+step=10
 
 case $1 in
     own) # ToFNest
         echo ToFNest
-        preddir=/media/rambo/ssd2/Szilard/nyu_v2_tofnest/tofnest/pcdpred/
-        predending=_pred.pcd
+        preddir=$basedir'pcdpred/'
+        predending=.pcd
         ;;
     nesti) # Nesti-Net
         echo Nesti-Net
-        preddir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/nestigen/
+        preddir=/media/rambo/ssd2/Szilard/nestigen/
         predending=_nestinormals.pcd
         ;;
     pcpss) # PCPNet single scale
         echo PCPNet_ss
-        preddir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/pcpnetgen/single_scale_normal/
+        preddir=/media/rambo/ssd2/Szilard/pcpnetgen/single_scale_normal/
         predending=_pcpnetnormals.pcd
         ;;
     pcpms) #PCPNet multi scale
         echo PCPNet_ms
-        preddir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/pcpnetgen/multi_scale_normal/
+        preddir=/media/rambo/ssd2/Szilard/pcpnetgen/multi_scale_normal/
         predending=_pcpnetnormals.pcd
         ;;
     pcl) # Point CLoud Normals
         echo PCLNORMALS
-        preddir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/pclnormals/pclnormals/
+        preddir=/media/rambo/ssd2/Szilard/pclnormals/
         predending=_pclouds_normals_pclnormals.pcd
         ;;
     hough) # Hough Normals
         echo HOUGHNORMALS
-        preddir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/houghgen/
+        preddir=/media/rambo/ssd2/Szilard/houghgen/
         predending=_houghnormals.pcd
         ;;
     *) # toffilter
         echo Undefined, ToFNest
-        preddir=/media/rambo/ssd2/Szilard/nyu_v2_tofnest/tofnest/pcdpred/
+        preddir=$basedir'pcdpred/'
         predending=_pred.pcd
         ;;    
 esac
