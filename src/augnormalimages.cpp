@@ -13,12 +13,12 @@
 using namespace std;
 using namespace cv;
 
-// char directory[100] = "/media/rambo/ssd2/Szilard/c24/640x480/";
+char directory[100] = "/media/rambo/ssd2/Szilard/c24/";
 // char directory[100] = "/media/rambo/ssd2/Szilard/lenssen_tofnest/";
-char directory[100] = "/media/rambo/ssd2/Szilard/nyu_tofnest/";
+// char directory[100] = "/media/rambo/ssd2/Szilard/nyu_tofnest/";
 int cnt = 0;
 int counter = 0;
-int max_nr = 1449;
+int max_nr = 1365;
 
 void depth_normals_to_pcdnormals()
 {

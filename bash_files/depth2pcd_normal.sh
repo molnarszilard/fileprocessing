@@ -1,10 +1,10 @@
 #!bin/bash
 builddir=$PWD'/../build/'
-basedir=/media/rambo/ssd2/Szilard/c24/640x480/
+basedir=/media/rambo/ssd2/Szilard/c24/
 # basedir=/media/rambo/ssd2/Szilard/pico_tofnest/
 # basedir=/media/rambo/ssd2/Szilard/nyu_tofnest/
 # basedir=/media/rambo/ssd2/Szilard/lenssen_tofnest/
-ddir=$basedir'depth2/'
+ddir=$basedir'depth/'
 ndir=$basedir'predictions/'
 pcddir=$basedir'pcdpred/'
 camera="isaac" #pico, nyu, kitti, isaac
@@ -24,14 +24,14 @@ fi
 cd $ddir
 
 declare -a arrD
-for file in *.png
+for file in *0.png
 do
     arrD=("${arrD[@]}" "$file")
 done
 
 cd $ndir
 declare -a arrN
-for file in *.png
+for file in *0_pred.png
 do
     arrN=("${arrN[@]}" "$file")
 done
@@ -41,6 +41,7 @@ cd $builddir
 for i in "${!arrD[@]}"; do
     dfilename="${arrD[i]}"
     nfilename="${arrN[i]}"
-    echo $ndir$dfilename
+    echo $ddir$dfilename
+    # echo $ndir$nfilename
     ./depth2pcd_normal $ddir $ndir $pcddir $dfilename $nfilename $camera
 done

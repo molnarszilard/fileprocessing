@@ -1,13 +1,13 @@
 #!bin/bash
 
 builddir=$PWD'/../build/'
-# basedir=/media/rambo/ssd2/Szilard/c24/640x480/
+basedir=/media/rambo/ssd2/Szilard/c24/
 # basedir=/media/rambo/ssd2/Szilard/pico_tofnest/
 # basedir=/media/rambo/ssd2/Szilard/nyu_tofnest/
-basedir=/media/rambo/ssd2/Szilard/lenssen_tofnest/
+# basedir=/media/rambo/ssd2/Szilard/lenssen_tofnest/
 default_dir=$basedir'aug/depth/' # path to input file directory
 default_iext=.png # find the files with these extension
-default_od=$basedir'aug/ndepth/' # 
+default_od=$basedir'aug/depthn10/' # 
 default_sigma=100
 
 if [[ ! -z "$1" ]] 

@@ -8,7 +8,7 @@ import argparse
 import cv2
 
 parser = argparse.ArgumentParser(description='Process some integers.')
-parser.add_argument('--dir', default="/media/rambo/ssd2/Szilard/lenssen_tofnest/aug/depth/",
+parser.add_argument('--dir', default="/media/rambo/ssd2/Szilard/c24/aug/depth/",
                     help='the directory to the source files')
 args = parser.parse_args()
 

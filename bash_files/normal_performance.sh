@@ -2,10 +2,10 @@
 builddir=$PWD'/../build/'
 
 # path, leaf size, meanK, StddevMulThresh
-histo=histogram_isaac_self.txt
+histo=histogram_lenssen_on_isaac.txt
 start=0
-end=700
-basedir=/media/rambo/ssd2/Szilard/c24/640x480/
+end=1365
+basedir=/media/rambo/ssd2/Szilard/c24/
 # basedir=/media/rambo/ssd2/Szilard/pico_tofnest/
 # basedir=/media/rambo/ssd2/Szilard/nyu_tofnest/
 # basedir=/media/rambo/ssd2/Szilard/lenssen_tofnest/

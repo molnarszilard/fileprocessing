@@ -1,11 +1,11 @@
 #!bin/bash
 builddir=$PWD'/../build/'
-basedir=/media/rambo/ssd2/Szilard/c24/640x480/
+basedir=/media/rambo/ssd2/Szilard/c24/
 # basedir=/media/rambo/ssd2/Szilard/pico_tofnest/
 # basedir=/media/rambo/ssd2/Szilard/nyu_tofnest/
 input_dir=$basedir'pcd/'
-output_dir=$basedir'pcdpred/'
-normalradius=1.0
+output_dir=$basedir'pcdnormals/'
+normalradius=0.08
 
 if [[ ! -z "$1" ]] 
 then 

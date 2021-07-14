@@ -1,12 +1,12 @@
 #!bin/bash
 builddir=$PWD'/../build/'
-basedir=/media/rambo/ssd2/Szilard/c24/640x480/
+basedir=/media/rambo/ssd2/Szilard/c24/
 # basedir=/media/rambo/ssd2/Szilard/pico_tofnest/
 # basedir=/media/rambo/ssd2/Szilard/nyu_tofnest/
-ddir=$basedir'aug/depth/'
-normaldir=$basedir'aug/rgb/'
+ddir=$basedir'depth/'
+normaldir=$basedir'normalimages/'
 camera="isaac" #pico, nyu, kitti, isaac
-supportsize=1.0
+supportsize=0.05
 
 if [[ ! -z "$1" ]] 
 then 
