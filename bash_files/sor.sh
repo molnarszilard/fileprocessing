@@ -1,8 +1,8 @@
 #!bin/bash
 #!bin/bash
 builddir=$PWD'/../build/'
-input_dir=/media/rambo/ssd2/Szilard/nyu_v2_filter/dataset_plane/pcd_vox/
-output_dir=/media/rambo/ssd2/Szilard/nyu_v2_filter/dataset_plane/pcd_vox/
+input_dir=/media/rambo/ssd2/Szilard/toffilter_isaac/pcd/
+output_dir=/media/rambo/ssd2/Szilard/toffilter_isaac/pcd_sor/
 
 if [[ ! -z "$1" ]] 
 then 
@@ -17,5 +17,5 @@ cd $input_dir
 for filename in *.pcd; do
     cd $builddir
     # input directory, output directory, filename, meanK, stddevMultiTresh
-    ./sor $input_dir $output_dir $filename 50 1.0
+    ./sor $input_dir $output_dir $filename 50 0.5
 done

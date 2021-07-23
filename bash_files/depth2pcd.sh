@@ -1,11 +1,13 @@
 #!bin/bash
 builddir=$PWD'/../build/'
-basedir=/media/rambo/ssd2/Szilard/c24/
+# basedir=/media/rambo/ssd2/Szilard/c24/
 # basedir=/media/rambo/ssd2/Szilard/pico_tofnest/
 # basedir=/media/rambo/ssd2/Szilard/nyu_tofnest/
-ddir=$basedir'depth/'
-pcddir=$basedir'pcd/'
-camera="isaac" #pico, nyu, kitti, isaac
+# basedir=/media/rambo/ssd2/Szilard/toffilter_isaac/
+basedir=/media/rambo/ssd2/Szilard/kitti/validation/
+ddir=$basedir'depth_dense/'
+pcddir=$basedir'pcddense/'
+camera="kitti" #pico, nyu, kitti, isaac
 
 if [[ ! -z "$1" ]] 
 then 

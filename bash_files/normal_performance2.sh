@@ -14,6 +14,7 @@ gtdir=$basedir'pcdnormals/'
 deltadir=$basedir'pcdpred_delta/'
 gtending=.pcd
 step=10
+camera="kitti" #pico, nyu, kitti, isaac
 
 case $1 in
     own) # ToFNest
@@ -54,22 +55,6 @@ case $1 in
 esac
 # echo $preddir
 cd $builddir
-dont_save_delta_pcd=no
-case $2 in
-    quality)
-        ./normal_performance_quality $histo $gtdir $preddir $gtending $predending $dont_save_delta_pcd $start $end $step
-        ;;
-    quality_delta)
-        ./normal_performance_quality $histo $gtdir $preddir $gtending $predending $deltadir $start $end $step
-        ;;
-    angle)
-        ./normal_performance_angle $histo $gtdir $preddir $gtending $predending $start $end $step
-        ;;
-    distribution)
-        ./normal_performance_distribution $gtdir $preddir $gtending $predending $start $end $step
-        ;;
-    *)
-        ./normal_performance_quality $histo $gtdir $preddir $gtending $predending $deltadir $start $end $step
-        ;;
-esac
+./normal_performance_quality2 $histo $gtdir $preddir $gtending $predending $start $end $step $camera
+
 

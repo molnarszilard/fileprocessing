@@ -50,9 +50,9 @@ int main(int argc, char *argv[])
             vector[0] = (vector[0]+1)/2;
             vector[1] = (vector[1]+1)/2;
             vector[2] = (vector[2]+1)/2;
-            r = (int)(vector[0] * 255);
-            g = (int)(vector[1] * 255);
-            b = (int)(vector[2] * 255);
+            r = round(vector[0] * 255);
+            g = round(vector[1] * 255);
+            b = round(vector[2] * 255);
             std::uint32_t rgb = ((std::uint32_t)r << 16 | (std::uint32_t)g << 8 | (std::uint32_t)b);
             p.rgb = *reinterpret_cast<float *>(&rgb);
 
@@ -91,9 +91,9 @@ int main(int argc, char *argv[])
             double g0 = cloud0->points[i].normal_y;
             double b0 = cloud0->points[i].normal_z;
             std::uint8_t r = 0, g = 0, b = 0;
-            r = (int)((r0 - minr) / (maxr - minr) * 255);
-            g = (int)((g0 - ming) / (maxg - ming) * 255);
-            b = (int)((b0 - minb) / (maxb - minb) * 255);
+            r = round((r0 - minr) / (maxr - minr) * 255);
+            g = round((g0 - ming) / (maxg - ming) * 255);
+            b = round((b0 - minb) / (maxb - minb) * 255);
             std::uint32_t rgb = ((std::uint32_t)r << 16 | (std::uint32_t)g << 8 | (std::uint32_t)b);
             p.rgb = *reinterpret_cast<float *>(&rgb);
 

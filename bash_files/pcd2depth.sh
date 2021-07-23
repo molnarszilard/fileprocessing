@@ -1,7 +1,7 @@
 #!bin/bash
 builddir=$PWD'/../build/'
-input_dir=/media/rambo/ssd2/Szilard/c24/640x480/pcd/
-output_dir=/media/rambo/ssd2/Szilard/c24/640x480/depth3/
+input_dir=/media/rambo/ssd2/Szilard/toffilter_isaac/pcd_vox/
+output_dir=/media/rambo/ssd2/Szilard/toffilter_isaac/depth_vox/
 camera="isaac" #pico, nyu, kitti, isaac
 if [[ ! -z "$1" ]] 
 then 

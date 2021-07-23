@@ -111,8 +111,8 @@ int main(int argc, char **argv)
             z = cloud->points[i].z * 1000.0;
             u = (cloud->points[i].x * 1000.0 * fx) / z;
             v = (cloud->points[i].y * 1000.0 * fy) / z;
-            pixel_pos_x = (int)(u + x0);
-            pixel_pos_y = (int)(v + y0);
+            pixel_pos_x = round(u + x0);
+            pixel_pos_y = round(v + y0);
 
             if (pixel_pos_x < 0)
             {

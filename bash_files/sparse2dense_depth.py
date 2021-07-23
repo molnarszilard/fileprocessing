@@ -5,11 +5,12 @@ from numpy.lib.arraypad import pad
 import cv2
 import numpy as np
 import os
+import timeit
 
 parser = argparse.ArgumentParser(description='Process some integers.')
-parser.add_argument('--dir', default="/media/rambo/ssd2/Szilard/kitti/tofnest/depth/",
+parser.add_argument('--dir', default="/media/rambo/ssd2/Szilard/kitti/depth/",
                     help='the directory to the source files')
-parser.add_argument('--dirout', default="/media/rambo/ssd2/Szilard/kitti/tofnest/depth_dense/",
+parser.add_argument('--dirout', default="/media/rambo/ssd2/Szilard/kitti/depth_dense/",
                     help='the directory to the output files')
 args = parser.parse_args()
 
@@ -30,8 +31,8 @@ for filename in dlist:
 
 def method1(mat):
     zero = True
-    
-    while zero:
+    nrzero = len(mat)*len(mat[1])
+    while nrzero>len(mat)*len(mat[1])/4:
         nrzero = 0
         zero = False
         for i in range(len(mat)):
@@ -70,28 +71,48 @@ def method1(mat):
 
 def method2(mat):
     padding_size=3
-    nrzero=0
-    for i in range(len(mat)):
-        for j in range(len(mat[1])):
-            zero=False
-            if mat[i,j]==0:
-                nrzero=nrzero+1
-                i2=i+padding_size
-                j2=j+padding_size
-                mat2=np.pad(mat, 2,  'constant', constant_values=(0))
-                # print(mat2[i2-padding_size:i2+padding_size+1,j2-padding_size:j2+padding_size+1])
-                # print(i)
-                mat[i,j]=np.mean(mat2[i2-padding_size:i2+padding_size+1,j2-padding_size:j2+padding_size+1])
-    # print(nrzero)
+    nrzero = len(mat)*len(mat[1])
+    # print(len(mat))
+    # print(len(mat[1]))
+    mat2=np.pad(mat, padding_size,  'constant', constant_values=(0)) 
+    while nrzero>len(mat)*len(mat[1])/2:
+        
+        nrzero=0
+        # print(nrzero)
+        for i in range(len(mat)):
+            print (i, end="\r")
+            # print(i)
+            for j in range(len(mat[1])):
+                zero=False
+                if mat[i,j]==0:
+                    
+                    i2=i+padding_size
+                    j2=j+padding_size
+                    
+                    mat3=mat2[i2-padding_size:i2+padding_size+1,j2-padding_size:j2+padding_size+1]
+                    # print(mat2)
+                    # print(mat[i,j])
+                    # mat[i,j]=np.mean(mat2[i2-padding_size:i2+padding_size+1,j2-padding_size:j2+padding_size+1])
+                    if np.count_nonzero(mat3)>0:
+                        mat[i,j]=mat3.sum()/np.count_nonzero(mat3)
+                        mat2[i2,j2]=mat[i,j]
+                    else: 
+                        nrzero=nrzero+1
+                        # print(mat[i,j])
+                    # print(mat[i,j])
+        print(nrzero)
     return mat
 
 for i in range(len(images)):
     print(images[i])
-    if i<19:
-        continue
+    # if i<19:
+    #     continue
     sparse=cv2.imread(directory+images[i],cv2.IMREAD_UNCHANGED)
     # dense = np.zeros((len(sparse),len(sparse[0])), 'uint16')
-    dense = method2(sparse)    
+    start = timeit.default_timer()
+    dense = method2(sparse) 
+    stop = timeit.default_timer()
+    print("Operation time: "+str(stop-start))
     im = Image.fromarray(np.uint16(dense))
     #image.show()
     im.save(directorymod+images[i])

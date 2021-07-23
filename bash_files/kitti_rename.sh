@@ -1,9 +1,9 @@
 #!bin/bash
 builddir=$PWD'/../build/'
-input_dir=/media/rambo/ssd2/Szilard/kitti/train/
-inter2=/proj_depth/velodyne_raw/image_02/
-inter3=/proj_depth/velodyne_raw/image_03/
-output_dir=/media/rambo/ssd2/Szilard/kitti/tofnest/depth/
+input_dir=/media/rambo/60D6E001D6DFD57E/Szilard/kitti/train/
+inter2=/proj_depth/groundtruth/image_02/
+inter3=/proj_depth/groundtruth/image_03/
+output_dir=/media/rambo/ssd2/Szilard/kitti/depth_dense/
 
 
 if [[ ! -z "$1" ]] 
@@ -26,12 +26,12 @@ for dirname in *; do
         echo $foo
         cp $input_dir$dirname$inter2$filename $output_dir$foo.png
     done
-    cd $input_dir$dirname$inter3
-    for filename in *.png; do
-        # echo $input_dir$dirname$inter2$filename
-        foo=$(printf "%05d" $n)
-        n=$((n+1))
-        echo $foo
-        cp $input_dir$dirname$inter3$filename $output_dir$foo.png
-    done
+    # cd $input_dir$dirname$inter3
+    # for filename in *.png; do
+    #     # echo $input_dir$dirname$inter2$filename
+    #     foo=$(printf "%05d" $n)
+    #     n=$((n+1))
+    #     echo $foo
+    #     cp $input_dir$dirname$inter3$filename $output_dir$foo.png
+    # done
 done

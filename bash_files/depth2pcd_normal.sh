@@ -1,13 +1,13 @@
 #!bin/bash
 builddir=$PWD'/../build/'
-basedir=/media/rambo/ssd2/Szilard/c24/
+basedir=/media/rambo/ssd2/Szilard/kitti/validation/
 # basedir=/media/rambo/ssd2/Szilard/pico_tofnest/
 # basedir=/media/rambo/ssd2/Szilard/nyu_tofnest/
 # basedir=/media/rambo/ssd2/Szilard/lenssen_tofnest/
 ddir=$basedir'depth/'
 ndir=$basedir'predictions/'
 pcddir=$basedir'pcdpred/'
-camera="isaac" #pico, nyu, kitti, isaac
+camera="kitti" #pico, nyu, kitti, isaac
 
 if [[ ! -z "$1" ]] 
 then 
@@ -24,14 +24,14 @@ fi
 cd $ddir
 
 declare -a arrD
-for file in *0.png
+for file in *.png
 do
     arrD=("${arrD[@]}" "$file")
 done
 
 cd $ndir
 declare -a arrN
-for file in *0_pred.png
+for file in *_pred.png
 do
     arrN=("${arrN[@]}" "$file")
 done
