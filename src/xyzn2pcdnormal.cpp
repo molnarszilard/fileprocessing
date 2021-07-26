@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
     filename = filename.substr(0, filename.size() - 3);
     char file_out[200];
     sprintf(file_out, "%s%spcd", odir.c_str(), filename.c_str());
-
+    
     ifstream xyz_file(file_xyz);
     //Check that the input file has being successfully opened
     if (!(xyz_file.is_open()))
@@ -59,7 +59,6 @@ int main(int argc, char *argv[])
         cloud.points.push_back(p);
         i++;
     }
-
     cloud.width = cloud.points.size();
     cout << "Number of points:" << cloud.width << endl;
     cloud.height = 1;

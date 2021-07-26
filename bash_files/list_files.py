@@ -4,7 +4,7 @@ import argparse
 import cv2
 
 parser = argparse.ArgumentParser(description='Process some integers.')
-parser.add_argument('--dir',dest='dir', default="/media/rambo/ssd2/Szilard/nyu_v2_filter/xyz/",
+parser.add_argument('--dir',dest='dir', default="/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/xyz_n05/",
                     help='the directory to the source files')
 parser.add_argument('--test',dest='test', default=False,
                     help='do you need to create separate test/train/validation datasets?')

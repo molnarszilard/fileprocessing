@@ -8,9 +8,9 @@ import os
 import timeit
 
 parser = argparse.ArgumentParser(description='Process some integers.')
-parser.add_argument('--dir', default="/media/rambo/ssd2/Szilard/kitti/depth/",
+parser.add_argument('--dir', default="/media/rambo/ssd2/Szilard/kitti/validation/depth/",
                     help='the directory to the source files')
-parser.add_argument('--dirout', default="/media/rambo/ssd2/Szilard/kitti/depth_dense/",
+parser.add_argument('--dirout', default="/media/rambo/ssd2/Szilard/kitti/validation/depth_dense_own/",
                     help='the directory to the output files')
 args = parser.parse_args()
 
@@ -74,11 +74,12 @@ def method2(mat):
     nrzero = len(mat)*len(mat[1])
     # print(len(mat))
     # print(len(mat[1]))
-    mat2=np.pad(mat, padding_size,  'constant', constant_values=(0)) 
+     
     while nrzero>len(mat)*len(mat[1])/2:
         
         nrzero=0
         # print(nrzero)
+        mat2=np.pad(mat, padding_size,  'constant', constant_values=(0))
         for i in range(len(mat)):
             print (i, end="\r")
             # print(i)
@@ -95,7 +96,7 @@ def method2(mat):
                     # mat[i,j]=np.mean(mat2[i2-padding_size:i2+padding_size+1,j2-padding_size:j2+padding_size+1])
                     if np.count_nonzero(mat3)>0:
                         mat[i,j]=mat3.sum()/np.count_nonzero(mat3)
-                        mat2[i2,j2]=mat[i,j]
+                        # mat2[i2,j2]=mat[i,j]
                     else: 
                         nrzero=nrzero+1
                         # print(mat[i,j])

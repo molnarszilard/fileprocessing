@@ -31,6 +31,6 @@ for filename in dlist:
             shutil.copy2(directory+filename,directory+number+args.ending)
         else:
             shutil.move(directory+filename,directory+number+args.ending)
-        n=n+1
+        n=n+10
     else:
         continue

@@ -3,10 +3,11 @@ builddir=$PWD'/../build/'
 # basedir=/media/rambo/ssd2/Szilard/c24/
 # basedir=/media/rambo/ssd2/Szilard/pico_tofnest/
 # basedir=/media/rambo/ssd2/Szilard/nyu_tofnest/
+# basedir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/
 # basedir=/media/rambo/ssd2/Szilard/toffilter_isaac/
 basedir=/media/rambo/ssd2/Szilard/kitti/validation/
-ddir=$basedir'depth_dense/'
-pcddir=$basedir'pcddense/'
+ddir=$basedir'depth_dense_own/'
+pcddir=$basedir'pcddense_own/'
 camera="kitti" #pico, nyu, kitti, isaac
 
 if [[ ! -z "$1" ]] 

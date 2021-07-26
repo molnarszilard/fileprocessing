@@ -2,7 +2,7 @@
 builddir=$PWD'/../build/'
 
 # path, leaf size, meanK, StddevMulThresh
-histo=histogram_own_pcnor.txt
+histo=histogram_dfilt_pcnor_n10.txt
 noise=n00
 start=0
 end=1449
@@ -27,7 +27,7 @@ case $1 in
         ;;
     pcn) # pointcleannet
         echo PointCleanNet
-        preddir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/pcn_or/pcd/
+        preddir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/dfilt_pcnor/pcd/
         predending=.pcd
         ;;
     matlab) #matlab denoiser
@@ -53,5 +53,5 @@ case $1 in
 esac
 # echo $preddir
 cd $builddir
-step=1
+step=10
 ./comparepcd $histo $gtdir $preddir $gtending $predending $start $end $step

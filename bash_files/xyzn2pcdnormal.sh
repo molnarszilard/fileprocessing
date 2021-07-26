@@ -1,8 +1,8 @@
 #!bin/bash
 builddir=$PWD'/../build/'
-xyzdir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/own/working/xyz/
-ndir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/own/working/normal/
-pcddir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/own/working/pcd/
+xyzdir=/media/rambo/ssd2/Szilard/kitti/validation/xyz/
+ndir=/media/rambo/ssd2/Szilard/kitti/validation/normal/
+pcddir=/media/rambo/ssd2/Szilard/kitti/validation/nestipred/
 
 if [[ ! -z "$1" ]] 
 then 
@@ -28,5 +28,6 @@ cd $builddir
 for i in "${!arrXYZ[@]}"; do
     xyzfilename="${arrXYZ[i]}"
     nfilename="${arrN[i]}"
+    # echo $xyzfilename $nfilename
     ./xyzn2pcdnormal $xyzdir $ndir $pcddir $xyzfilename $nfilename
 done
