@@ -2,20 +2,20 @@
 builddir=$PWD'/../build/'
 
 # path, leaf size, meanK, StddevMulThresh
-histo=histogram_kitti_dense_own_nesti.txt
+histo=histogram_tofclean_lenssenn_on_lenssen_n10.txt
 start=0
-end=1000
-basedir=/media/rambo/ssd2/Szilard/kitti/validation/
+end=1449
+# basedir=/media/rambo/ssd2/Szilard/kitti/validation/
 # basedir=/media/rambo/ssd2/Szilard/c24/
 # basedir=/media/rambo/ssd2/Szilard/pico_tofnest/
 # basedir=/media/rambo/ssd2/Szilard/nyu_tofnest/
-# basedir=/media/rambo/ssd2/Szilard/lenssen_tofnest/
-# gtdir=$basedir'pcdnormals/'
-gtdir=/media/rambo/ssd2/Szilard/kitti/validation/nestipred/
+basedir=/media/rambo/ssd2/Szilard/lenssen_tofnest/
+gtdir=$basedir'pcdnormals/'
+# gtdir=/media/rambo/ssd2/Szilard/kitti/validation/nestipred/
 deltadir=$basedir'pcdpred_delta/'
 gtending=.pcd
 step=10
-camera="kitti" #pico, nyu, kitti, isaac
+camera="nyu" #pico, nyu, kitti, isaac
 
 case $1 in
     own) # ToFNest

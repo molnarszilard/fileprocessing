@@ -21,6 +21,8 @@ using namespace std;
 int main(int argc, char **argv)
 {
     // calibration parameters
+    int height = 480;
+    int width = 640;
     std::string camera_type = argv[6];
     std::string camera_type_pico = "pico";
     std::string camera_type_nyu = "nyu";
@@ -29,7 +31,8 @@ int main(int argc, char **argv)
     double K[9] = {582.62448167737955, 0.0, 313.04475870804731, 0.0, 582.69103270988637, 238.44389626620386, 0.0, 0.0, 1.0}; // nyu_v2_dataset
     if (camera_type.compare(camera_type_pico) == 0)
     {
-
+        height = 360;
+        width = 640;
         K[0] = 460.58518931365654;
         K[2] = 334.0805877590529;
         K[4] = 460.2679961517268;
@@ -37,7 +40,8 @@ int main(int argc, char **argv)
     }
     if (camera_type.compare(camera_type_nyu) == 0)
     {
-
+        height = 480;
+        width = 640;
         K[0] = 582.62448167737955;
         K[2] = 313.04475870804731;
         K[4] = 582.69103270988637;
@@ -45,7 +49,8 @@ int main(int argc, char **argv)
     }
     if (camera_type.compare(camera_type_kitti) == 0)
     {
-
+        height = 350;
+        width = 1200;
         K[0] = 721.5377;
         K[2] = 609.5593;
         K[4] = 721.5377;
@@ -54,7 +59,8 @@ int main(int argc, char **argv)
 
     if (camera_type.compare(camera_type_isaac) == 0)
     {
-
+        height = 480;
+        width = 640;
         K[0] = 581.8181762695312;
         K[2] = 320.0;
         K[4] = 581.8181762695312;
@@ -65,8 +71,7 @@ int main(int argc, char **argv)
     double fy = K[4];
     double x0 = K[2];
     double y0 = K[5];
-    int height_ = 480;
-    int width_ = 640;
+
     int pixel_pos_x, pixel_pos_y;
     float z, u, v;
     cv::Mat cv_image;
@@ -83,7 +88,7 @@ int main(int argc, char **argv)
         return (-1);
     }
     std::cout << "PointCloud has: " << cloud->size() << " data points." << std::endl;
-    cv::Mat output = cv::Mat::zeros(height_, width_, CV_8UC3);
+    cv::Mat output = cv::Mat::zeros(height, width, CV_8UC3);
     for (int i = 0; i < cloud->points.size(); i++)
     {
         bool nan = false;
@@ -110,18 +115,18 @@ int main(int argc, char **argv)
             {
                 pixel_pos_x = -pixel_pos_x;
             }
-            if (pixel_pos_x > (width_ - 1))
+            if (pixel_pos_x > (width - 1))
             {
-                pixel_pos_x = width_ - 1;
+                pixel_pos_x = width - 1;
             }
 
             if (pixel_pos_y < 0)
             {
                 pixel_pos_y = -pixel_pos_y;
             }
-            if (pixel_pos_y > (height_ - 1))
+            if (pixel_pos_y > (height - 1))
             {
-                pixel_pos_y = height_ - 1;
+                pixel_pos_y = height - 1;
             }
             output.at<Vec3b>(pixel_pos_y, pixel_pos_x)[0] = b;
             output.at<Vec3b>(pixel_pos_y, pixel_pos_x)[1] = g;

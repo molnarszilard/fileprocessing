@@ -15,6 +15,8 @@ parser.add_argument('--number', default=0, type=int,
                     help='start of the numbering')
 parser.add_argument('--copy', default=False, type=bool,
                     help='move or copy')
+parser.add_argument('--increment', default=1, type=int, 
+                    help='how much is the increment, 1,10 ....')
 args = parser.parse_args()
 
 directory=args.dir
@@ -31,6 +33,6 @@ for filename in dlist:
             shutil.copy2(directory+filename,directory+number+args.ending)
         else:
             shutil.move(directory+filename,directory+number+args.ending)
-        n=n+10
+        n=n+args.increment
     else:
         continue

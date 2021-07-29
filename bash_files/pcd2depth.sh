@@ -1,8 +1,8 @@
 #!bin/bash
 builddir=$PWD'/../build/'
-input_dir=/media/rambo/ssd2/Szilard/toffilter_isaac/pcd_vox/
-output_dir=/media/rambo/ssd2/Szilard/toffilter_isaac/depth_vox/
-camera="isaac" #pico, nyu, kitti, isaac
+input_dir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/pcn_or/pcnor_n10/pcd/
+output_dir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/pcn_or/depth_n10/
+camera="nyu" #pico, nyu, kitti, isaac
 if [[ ! -z "$1" ]] 
 then 
     input_dir=$1

@@ -223,7 +223,7 @@ int main(int argc, char *argv[])
     }
     if (camera_type.compare(camera_type_nyu) == 0)
     {
-        height = 360;
+        height = 480;
         width = 640;
         K[0] = 582.62448167737955;
         K[2] = 313.04475870804731;

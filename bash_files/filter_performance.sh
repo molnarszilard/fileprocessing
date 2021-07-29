@@ -2,12 +2,13 @@
 builddir=$PWD'/../build/'
 
 # path, leaf size, meanK, StddevMulThresh
-histo=histogram_pcnnror_n10.txt
+histo=histogram_pcnor.txt
 noise=n00
 start=0
 end=1449
 gtdir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/pcn/pcn_n00/
 gtending=.pcd
+camera="nyu" #pico, nyu, kitti, isaac
 
 case $1 in
     base) # original noisy data
@@ -27,7 +28,7 @@ case $1 in
         ;;
     pcn) # pointcleannet
         echo PointCleanNet
-        preddir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/pcn_nr_or/pcnnror_10/pcd/
+        preddir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/pcn_or/pcnor_n00/pcd/
         predending=.pcd
         ;;
     matlab) #matlab denoiser
@@ -54,4 +55,4 @@ esac
 # echo $preddir
 cd $builddir
 step=10
-./comparepcd $histo $gtdir $preddir $gtending $predending $start $end $step
+./filter_performance $histo $gtdir $preddir $gtending $predending $start $end $step $camera

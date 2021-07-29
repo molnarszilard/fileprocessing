@@ -25,6 +25,8 @@ int min_points = 0;
 
 int main(int argc, char **argv)
 {
+    int height = 480;
+    int width = 640;
     std::string camera_type = argv[4];
     std::string camera_type_pico = "pico";
     std::string camera_type_nyu = "nyu";
@@ -33,7 +35,8 @@ int main(int argc, char **argv)
     double K[9] = {582.62448167737955, 0.0, 313.04475870804731, 0.0, 582.69103270988637, 238.44389626620386, 0.0, 0.0, 1.0}; // nyu_v2_dataset
     if (camera_type.compare(camera_type_pico) == 0)
     {
-
+        height = 360;
+        width = 640;
         K[0] = 460.58518931365654;
         K[2] = 334.0805877590529;
         K[4] = 460.2679961517268;
@@ -41,7 +44,8 @@ int main(int argc, char **argv)
     }
     if (camera_type.compare(camera_type_nyu) == 0)
     {
-
+        height = 480;
+        width = 640;
         K[0] = 582.62448167737955;
         K[2] = 313.04475870804731;
         K[4] = 582.69103270988637;
@@ -49,7 +53,8 @@ int main(int argc, char **argv)
     }
     if (camera_type.compare(camera_type_kitti) == 0)
     {
-
+        height = 350;
+        width = 1200;
         K[0] = 721.5377;
         K[2] = 609.5593;
         K[4] = 721.5377;
@@ -58,7 +63,8 @@ int main(int argc, char **argv)
 
     if (camera_type.compare(camera_type_isaac) == 0)
     {
-
+        height = 480;
+        width = 640;
         K[0] = 581.8181762695312;
         K[2] = 320.0;
         K[4] = 581.8181762695312;

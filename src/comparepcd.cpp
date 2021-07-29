@@ -75,7 +75,6 @@ float compare(int cnt, std::string gtdir, std::string preddir, std::string gtend
         max_dist_b = max_dist_b + sqr_distances[0];
     }
 
-    max_dist_a = std::sqrt(max_dist_a / cloudgt->points.size());
     max_dist_b = std::sqrt(max_dist_b / cloudpred->points.size());
 
     float dist = std::max(max_dist_a, max_dist_b);
