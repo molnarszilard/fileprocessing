@@ -4,9 +4,9 @@ builddir=$PWD'/../build/'
 # basedir=/media/rambo/ssd2/Szilard/pico_tofnest/
 # basedir=/media/rambo/ssd2/Szilard/nyu_tofnest/
 basedir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/
-# basedir=/media/rambo/ssd2/Szilard/toffilter_isaac/
+# basedir=/media/rambo/ssd2/Szilard/lenssen_tofnest/noise/
 # basedir=/media/rambo/ssd2/Szilard/kitti/validation/
-ddir=$basedir'predictions/'
+ddir=$basedir'own/predv40/predictions_n00/'
 pcddir=$basedir'pcdpred/'
 camera="nyu" #pico, nyu, kitti, isaac
 

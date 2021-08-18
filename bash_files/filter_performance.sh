@@ -2,8 +2,9 @@
 builddir=$PWD'/../build/'
 
 # path, leaf size, meanK, StddevMulThresh
-histo=histogram_pcnor.txt
-noise=n00
+
+noise=n10
+histo=histogram_dddae_$noise.txt
 start=0
 end=1449
 gtdir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/pcn/pcn_n00/
@@ -28,17 +29,17 @@ case $1 in
         ;;
     pcn) # pointcleannet
         echo PointCleanNet
-        preddir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/pcn_or/pcnor_n00/pcd/
+        preddir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/pcn_nr_or/pcnnror_$noise/pcd/
         predending=.pcd
         ;;
     matlab) #matlab denoiser
         echo Matlab
         preddir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/matlab_pred/matlab_$noise/
-        predending=_matlab.pcd
+        predending=_$noise'_matlab.pcd'
         ;;
     ddd) # deep depth denoising
         echo DeepDepthDenoising
-        preddir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/ddd/ddd_$noise/
+        preddir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/ddd/ddd_$noise/pcd/
         predending=_ddd.pcd
         ;;
     ownmask) # toffilter prediction with mask

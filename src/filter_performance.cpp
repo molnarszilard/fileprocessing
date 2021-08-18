@@ -169,19 +169,19 @@ float compare(int cnt, std::string gtdir, std::string preddir, std::string gtend
         {
             if (arraygt[i][j][2] > 0.0 && arraypred[i][j][2] > 0.0)
             {
-                depthloss += pow((arraygt[i][j][2] * 1000 - arraypred[i][j][2] * 1000), 2);
+                depthloss += pow((arraygt[i][j][2] - arraypred[i][j][2]), 2);
                 both++;
             }
             else
                 no++;
             if (arraygt[i][j][2] == 0.0 && arraypred[i][j][2] > 0.0)
             {
-                losspred += pow(arraypred[i][j][2] * 1000, 2);
+                losspred += pow(arraypred[i][j][2], 2);
                 predonly++;
             }
             if (arraygt[i][j][2] > 0.0 && arraypred[i][j][2] == 0.0)
             {
-                lossgt += pow(arraygt[i][j][2] * 1000, 2);
+                lossgt += pow(arraygt[i][j][2], 2);
                 gtonly++;
             }
         }
@@ -200,10 +200,10 @@ float compare(int cnt, std::string gtdir, std::string preddir, std::string gtend
         std::vector<float> sqr_distances(1);
 
         treepred.nearestKSearch(cloudgt->points[i], 1, indices, sqr_distances);
-        max_dist_a = max_dist_a + sqr_distances[0];
+        max_dist_a = max_dist_a + std::sqrt(sqr_distances[0]);
     }
     max_dist_a /= cloudgt->points.size();
-    hausdorf_dist_a = std::sqrt(max_dist_a);
+    hausdorf_dist_a = max_dist_a;
 
     // compare B to A
     pcl::search::KdTree<PointType> treegt;
@@ -216,10 +216,10 @@ float compare(int cnt, std::string gtdir, std::string preddir, std::string gtend
         std::vector<float> sqr_distances(1);
 
         treegt.nearestKSearch(cloudpred->points[i], 1, indices, sqr_distances);
-        max_dist_b = max_dist_b + sqr_distances[0];
+        max_dist_b = max_dist_b + std::sqrt(sqr_distances[0]);
     }
     max_dist_b /= cloudpred->points.size();
-    hausdorf_dist_b = std::sqrt(max_dist_b);
+    hausdorf_dist_b = max_dist_b;
 
     float dist = std::max(hausdorf_dist_a, hausdorf_dist_b);
     float chamfer = max_dist_b + max_dist_a;
