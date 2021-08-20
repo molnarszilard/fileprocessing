@@ -1,9 +1,10 @@
 #!bin/bash
 builddir=$PWD'/../build/'
-ddir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/own/working/xyz/
-ndir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/own/working/normal/
-pcddir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/own/working/pcd/
-camera="isaac" #pico, nyu, kitti, isaac
+basedir=/media/rambo/ssd2/Szilard/lenssen_tofnest/noise/
+ddir=$basedir'depth/'
+ndir=$basedir'pcpnetgen_n05/multi_scale_normal/'
+pcddir=$basedir'pcpnetgen_n05/multi_scale_normal/'
+camera="nyu" #pico, nyu, kitti, isaac
 if [[ ! -z "$1" ]] 
 then 
     ddir=$1
@@ -19,7 +20,7 @@ fi
 cd $ddir
 
 declare -a arrD
-for file in *.png
+for file in *0.png
 do
     arrD=("${arrD[@]}" "$file")
 done

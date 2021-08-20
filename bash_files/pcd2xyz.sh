@@ -1,8 +1,8 @@
 #!bin/bash
 builddir=$PWD'/../build/'
-basedir=/media/rambo/ssd2/Szilard/lenssen_tofnest/noise/
-input_dir=$basedir'pcd_n02/'
-output_dir=$basedir'xyz_n02/'
+basedir=/media/rambo/ssd2/Szilard/lenssen_tofnest/
+input_dir=$basedir'pcdnormals/'
+output_dir=$basedir'xyz/'
 
 if [[ ! -z "$1" ]] 
 then 

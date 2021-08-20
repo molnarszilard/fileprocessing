@@ -1,8 +1,9 @@
 #!bin/bash
 builddir=$PWD'/../build/'
-xyzdir=/media/rambo/ssd2/Szilard/kitti/validation/xyz/
-ndir=/media/rambo/ssd2/Szilard/kitti/validation/normal/
-pcddir=/media/rambo/ssd2/Szilard/kitti/validation/nestipred/
+basedir=/media/rambo/ssd2/Szilard/lenssen_tofnest/
+xyzdir=$basedir'xyz/'
+ndir=$basedir'noise/pcpnetgen_n02/single_scale_normal/'
+pcddir=$basedir'noise/pcpnetgen_n02/single_scale_normal/'
 
 if [[ ! -z "$1" ]] 
 then 

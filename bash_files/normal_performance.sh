@@ -3,8 +3,8 @@ builddir=$PWD'/../build/'
 
 # path, leaf size, meanK, StddevMulThresh
 histo=histogram_test.txt
-start=280
-end=281
+start=0
+end=10
 # basedir=/media/rambo/ssd2/Szilard/kitti/validation/
 # basedir=/media/rambo/ssd2/Szilard/c24/
 # basedir=/media/rambo/ssd2/Szilard/pico_tofnest/
@@ -28,13 +28,13 @@ case $1 in
         ;;
     pcpss) # PCPNet single scale
         echo PCPNet_ss
-        preddir=/media/rambo/ssd2/Szilard/lenssen_tofnest/comp/
+        preddir=$basedir'noise/pcpnetgen_n02/single_scale_normal/'
         predending=_pcpnetnormals.pcd
         ;;
     pcpms) #PCPNet multi scale
         echo PCPNet_ms
-        preddir=$basedir'pcdpred/'
-        predending=_pcpnetnormals.pcd
+        preddir=$basedir'pcpnetms/multi_scale_normal/'
+        predending=.pcd
         ;;
     pcl) # Point CLoud Normals
         echo PCLNORMALS
