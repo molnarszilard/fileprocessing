@@ -1,8 +1,8 @@
 #!bin/bash
 builddir=$PWD'/../build/'
 basedir=/media/rambo/ssd2/Szilard/lenssen_tofnest/
-input_dir=$basedir'pcdnormals/'
-output_dir=$basedir'xyz/'
+input_dir=$basedir'noise/pcd_n02/'
+output_dir=$basedir'noise/xyz_n02/'
 
 if [[ ! -z "$1" ]] 
 then 
@@ -14,7 +14,7 @@ then
 fi
 cd $input_dir
 
-for filename in *0.pcd; do
+for filename in *s.pcd; do
     cd $builddir
     ./pcd2xyz $input_dir $output_dir $filename
 done

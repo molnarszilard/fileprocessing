@@ -12,14 +12,14 @@ fi
 cd $xyzdir
 
 declare -a arrXYZ
-for file in *.xyz
+for file in 00000.xyz
 do
     arrXYZ=("${arrXYZ[@]}" "$file")
 done
 
 cd $ndir
 declare -a arrN
-for file in *.normals
+for file in *_.normals
 do
     arrN=("${arrN[@]}" "$file")
 done

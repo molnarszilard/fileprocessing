@@ -9,6 +9,8 @@ import shutil
 parser = argparse.ArgumentParser(description='Process some integers.')
 parser.add_argument('--dir', default="",
                     help='the directory to the source files')
+parser.add_argument('-p','--proportion', default=5, type=int,
+                    help='every n-th image is considered test, others are considered train')
 args = parser.parse_args()
 
 directory=args.dir
@@ -22,7 +24,11 @@ for filename in dlist:
         images.append(filename)
     else:
         continue
-        
+
+if not os.path.exists(directory+"test"):
+    os.makedirs(directory+"test")
+if not os.path.exists(directory+"train"):
+    os.makedirs(directory+"train")      
 # file1 = open(directory+"filelist.txt" ,'r')
 # Lines = file1.readlines()
 n=0
@@ -45,7 +51,7 @@ for i in range(len(images)):
     image_name=images[i]
     filename=f'{n:05d}'
     print(filename)
-    if n%3 == 0 :
+    if n%args.proportion == 0 :
         # cv2.imwrite(directory+"test/"+filename+".png", image.astype(np.uint16)) 
         shutil.move(directory+image_name,directory+"test/"+filename+".png")
     else:
