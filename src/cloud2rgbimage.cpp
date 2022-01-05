@@ -100,7 +100,7 @@ int main(int argc, char **argv)
             nan = true;
         if (isinf(cloud->points[i].r) || isinf(cloud->points[i].g) || isinf(cloud->points[i].b) || isinf(cloud->points[i].x) || isinf(cloud->points[i].y) || isinf(cloud->points[i].z))
             nan = true;
-        if (cloud->points[i].z <= 20 / 1000)
+        if (cloud->points[i].z <= 0.001)
             nan = true;
         if (!nan)
         {

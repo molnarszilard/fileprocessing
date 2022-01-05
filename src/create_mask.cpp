@@ -22,7 +22,7 @@ int main(int argc, char **argv)
     std::cout << file_depth << std::endl;
     sprintf(file_depthmask, "%s%s_mask.png", mdir.c_str(), filename.c_str());
 
-    cv::Mat mat_depth = cv::imread(file_depth, CV_LOAD_IMAGE_UNCHANGED);
+    cv::Mat mat_depth = cv::imread(file_depth, IMREAD_UNCHANGED);
     cv::Mat output = cv::Mat::zeros(mat_depth.rows, mat_depth.cols, CV_8UC1);
 
     double minVal;

@@ -199,7 +199,7 @@ int main(int argc, char **argv)
     dfilename = dfilename.substr(0, dfilename.size() - 4);
     sprintf(file_mask, "%s%s_mask.png", mdir.c_str(), dfilename.c_str());
     printf("Processing file - %s\n", file_depth);
-    cv::Mat depth = cv::imread(file_depth, CV_LOAD_IMAGE_UNCHANGED);
+    cv::Mat depth = cv::imread(file_depth, cv::IMREAD_UNCHANGED);
     pcl::PointCloud<pcl::PointXYZ>::Ptr cloud = createPCD(depth, K);
     pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_plane = fitplane(cloud);
 

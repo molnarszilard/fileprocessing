@@ -124,7 +124,7 @@ int main(int argc, char **argv)
     sprintf(file_normal, "%s%spng", normaldir.c_str(), filename.c_str());
     printf("Processing file - %s\n", file_depthin);
 
-    cv::Mat depth = cv::imread(file_depthin, CV_LOAD_IMAGE_UNCHANGED);
+    cv::Mat depth = cv::imread(file_depthin, IMREAD_UNCHANGED);
 
     pcl::PointCloud<pcl::PointXYZ>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZ>);
     pcl::PointXYZ p;

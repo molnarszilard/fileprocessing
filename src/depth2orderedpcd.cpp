@@ -81,7 +81,7 @@ int main(int argc, char **argv)
     sprintf(file_pcd, "%s%spcd", pcddir.c_str(), filename.c_str());
     printf("Processing file - %s\n", file_depthin);
 
-    cv::Mat depth = cv::imread(file_depthin, CV_LOAD_IMAGE_UNCHANGED);
+    cv::Mat depth = cv::imread(file_depthin, cv::IMREAD_UNCHANGED);
 
     pcl::PointCloud<pcl::PointXYZ> cloud_msg;
     pcl::PointXYZ p, pnan;

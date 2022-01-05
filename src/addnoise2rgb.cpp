@@ -25,7 +25,7 @@ int main(int argc, char **argv)
     std::string file_out = argv[3] + filename ;
     std::cout << argv[4] << std::endl;
     std::cout << file_out << std::endl;
-    cv::Mat mat_in = cv::imread(file_in, CV_LOAD_IMAGE_UNCHANGED);
+    cv::Mat mat_in = cv::imread(file_in, IMREAD_UNCHANGED);
     cv::Mat noise = cv::Mat::zeros(mat_in.rows, mat_in.cols, CV_8UC3);
     cv::Mat mask = cv::Mat::zeros(mat_in.rows, mat_in.cols, CV_8UC3);
     mask = mat_in.mul(1 / mat_in);

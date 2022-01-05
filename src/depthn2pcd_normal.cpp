@@ -82,7 +82,7 @@ int main(int argc, char *argv[])
     double x0 = K[2];
     double y0 = K[5];
 
-    cv::Mat mat_depth = cv::imread(file_depth, CV_LOAD_IMAGE_UNCHANGED);
+    cv::Mat mat_depth = cv::imread(file_depth, cv::IMREAD_UNCHANGED);
     ifstream normal_file(file_normal);
     //Check that the input file has being successfully opened
     if (!(normal_file.is_open()))

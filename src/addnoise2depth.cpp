@@ -26,7 +26,7 @@ int main(int argc, char **argv)
     std::string file_depthn = argv[3] + filename + "_" + argv[4] + ".png";
     std::cout << argv[4] << std::endl;
     std::cout << file_depthn << std::endl;
-    cv::Mat mat_depth = cv::imread(file_depth, CV_LOAD_IMAGE_UNCHANGED);
+    cv::Mat mat_depth = cv::imread(file_depth, IMREAD_UNCHANGED);
     cv::Mat noise = cv::Mat::zeros(mat_depth.rows, mat_depth.cols, CV_16UC1);
     cv::Mat mask = cv::Mat::zeros(mat_depth.rows, mat_depth.cols, CV_16UC1);
     mask = mat_depth.mul(1 / mat_depth);

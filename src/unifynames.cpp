@@ -10,7 +10,7 @@ int main(int argc, char **argv)
 {
     int chars=atoi(argv[2]);
     std::string filename = argv[1];
-    cv::Mat image = cv::imread(filename, CV_LOAD_IMAGE_UNCHANGED);
+    cv::Mat image = cv::imread(filename, IMREAD_UNCHANGED);
     filename = filename.substr(0, filename.size() - chars);
     imwrite(filename + ".png", image);
     return 0;

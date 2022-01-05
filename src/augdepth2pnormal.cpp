@@ -12,7 +12,7 @@
 
 using namespace std;
 
-char directory[100] = "/media/rambo/ssd2/Szilard/c24/640x480/";
+char directory[200] = "/media/rambo/ssd2/Szilard/c24/640x480/";
 int cnt = 0;
 int counter = 0;
 int counter2 = 0;
@@ -70,11 +70,10 @@ void depth_normals_to_pcdnormals()
     double fy = K[4];
     double x0 = K[2];
     double y0 = K[5];
-
-    char file_din[100];
-    char file_dinflr[100];
-    char file_dinfud[100];
-    char file_normal[100];
+    char file_din[200];
+    char file_dinflr[200];
+    char file_dinfud[200];
+    char file_normal[200];
 
     pcl::PointCloud<pcl::PointNormal>::Ptr cloud(new pcl::PointCloud<pcl::PointNormal>);
     pcl::PointCloud<pcl::PointNormal> cloud1;
@@ -95,9 +94,9 @@ void depth_normals_to_pcdnormals()
     // sprintf(file_depthout1, "%saug/adepth/%05d.png", directory, counter2);
     // sprintf(file_depthout2, "%saug/adepth/%05d.png", directory, counter2 + 1);
     // sprintf(file_depthout3, "%saug/adepth/%05d.png", directory, counter2 + 2);
-    cv::Mat depth1 = cv::imread(file_din, CV_LOAD_IMAGE_UNCHANGED);
-    cv::Mat depth2 = cv::imread(file_dinflr, CV_LOAD_IMAGE_UNCHANGED);
-    cv::Mat depth3 = cv::imread(file_dinfud, CV_LOAD_IMAGE_UNCHANGED);
+    cv::Mat depth1 = cv::imread(file_din, cv::IMREAD_UNCHANGED);
+    cv::Mat depth2 = cv::imread(file_dinflr, cv::IMREAD_UNCHANGED);
+    cv::Mat depth3 = cv::imread(file_dinfud, cv::IMREAD_UNCHANGED);
 
     // cv::imwrite(file_depthout1, depth1);
     // cv::imwrite(file_d3out1, depth31);

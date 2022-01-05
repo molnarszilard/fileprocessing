@@ -164,7 +164,7 @@ int main(int argc, char **argv)
     filename = filename.substr(0, filename.size() - 9);
     sprintf(file_depthmask, "%s%s_mask.png", mdir.c_str(), filename.c_str());
     printf("Processing file - %s", file_depthin);
-    cv::Mat depth = cv::imread(file_depthin, CV_LOAD_IMAGE_UNCHANGED);
+    cv::Mat depth = cv::imread(file_depthin, cv::IMREAD_UNCHANGED);
     pcl::PointCloud<pcl::PointXYZ>::Ptr cloud = createPCD(depth, K);
     pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_filtered = sorFilter(cloud, meanK, stddevMulThresh);
     cv::Mat output = createDepth(cloud_filtered, K, depth.rows, depth.cols);

@@ -23,7 +23,7 @@ int main(int argc, char **argv)
     std::string filename = argv[1];
     const int divider = atoi(argv[2]);
     std::cout << filename << std::endl;
-    cv::Mat mat_depth = cv::imread(filename, CV_LOAD_IMAGE_UNCHANGED);    
+    cv::Mat mat_depth = cv::imread(filename, IMREAD_UNCHANGED);    
     printf("%u/100=", mat_depth.at<uint16_t>(100, 100));
     cv::Mat output = cv::Mat::zeros(mat_depth.rows, mat_depth.cols, CV_16UC1);
     output = mat_depth / divider;

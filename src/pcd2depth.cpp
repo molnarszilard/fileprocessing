@@ -107,7 +107,7 @@ int main(int argc, char **argv)
             nan = true;
         if (isinf(cloud->points[i].x) || isinf(cloud->points[i].y) || isinf(cloud->points[i].z))
             nan = true;
-        if (cloud->points[i].z <= 20 / 1000)
+        if (cloud->points[i].z <= 0.001)
             nan = true;
         if (!nan)
         {
@@ -135,6 +135,7 @@ int main(int argc, char **argv)
             {
                 pixel_pos_y = height - 1;
             }
+            // std::cout << cloud->points[i].z << "," << pixel_pos_x << "," << pixel_pos_y << std::endl;
             // std::cout<<"pixels="<<pixel_pos_x<<","<<pixel_pos_y<<","<<z<<std::endl;
             output.at<uint16_t>(pixel_pos_y, pixel_pos_x) = z;
             // output.at<Vec3b>(pixel_pos_y, pixel_pos_x)[1] = z;
@@ -144,5 +145,4 @@ int main(int argc, char **argv)
     std::cout << "Depth has : " << count << " data points." << std::endl;
 
     imwrite(file_out, output);
-
 }

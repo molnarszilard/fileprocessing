@@ -21,8 +21,8 @@ int main(int argc, char **argv)
         sprintf(file_depth, "%snoisydepth/%05d_depth_noise_05.png", directory, cnt);
         sprintf(file_depth2ir, "%snoisydepth2ir/%05d_depth2ir.png", directory, cnt);
         sprintf(file_ir, "%sir/%05d_ir.png", directory, cnt);
-        cv::Mat mat_depth = cv::imread(file_depth, CV_LOAD_IMAGE_UNCHANGED);
-        cv::Mat mat_ir = cv::imread(file_ir, CV_LOAD_IMAGE_UNCHANGED);
+        cv::Mat mat_depth = cv::imread(file_depth, IMREAD_UNCHANGED);
+        cv::Mat mat_ir = cv::imread(file_ir, IMREAD_UNCHANGED);
         cv::Mat zerochannel = cv::Mat::zeros(cv::Size(mat_depth.rows, mat_depth.cols), CV_16U);
         cv::Mat output = cv::Mat::zeros(mat_depth.rows, mat_depth.cols, CV_16UC3);
         cv::Mat images[3] = {mat_ir, mat_depth, mat_depth};
