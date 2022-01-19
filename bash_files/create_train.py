@@ -19,7 +19,7 @@ images=[]
 dlist=os.listdir(directory)
 dlist.sort()
 for filename in dlist:
-    if filename.endswith(".jpg") or filename.endswith(".png"):
+    if filename.endswith(".jpg") or filename.endswith(".png") or filename.endswith(".npy"):
         #print(os.path.join(directory, filename))
         images.append(filename)
     else:
@@ -49,12 +49,11 @@ n=0
 for i in range(len(images)):    
     # image=cv2.imread(directory+images[i],cv2.IMREAD_UNCHANGED )
     image_name=images[i]
-    filename=f'{n:05d}'
     print(filename)
     if n%args.proportion == 0 :
         # cv2.imwrite(directory+"test/"+filename+".png", image.astype(np.uint16)) 
-        shutil.move(directory+image_name,directory+"test/"+filename+".png")
+        shutil.move(directory+image_name,directory+"test/"+image_name)
     else:
         # cv2.imwrite(directory+"train/"+filename+".png", image.astype(np.uint16))
-        shutil.move(directory+image_name,directory+"train/"+filename+".png")
+        shutil.move(directory+image_name,directory+"train/"+image_name)
     n=n+1
