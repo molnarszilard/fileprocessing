@@ -9,6 +9,7 @@
 #include <pcl/filters/voxel_grid.h>
 #include <pcl/io/pcd_io.h>
 #include <pcl/point_types.h>
+#include <pcl/search/impl/search.hpp>
 #include <pcl/search/kdtree.h>
 #include <string>
 

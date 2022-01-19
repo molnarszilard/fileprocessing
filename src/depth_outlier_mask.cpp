@@ -9,6 +9,8 @@
 #include <pcl/point_types.h>
 #include <string>
 
+using namespace std;
+
 pcl::PointCloud<pcl::PointXYZ>::Ptr createPCD(cv::Mat depth, double K[])
 {
     double fx = K[0];
