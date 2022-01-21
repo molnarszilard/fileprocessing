@@ -45,6 +45,7 @@ int main(int argc, char** argv)
 {
   std::string srcfilename = argv[1];
   std::string dstfilename;
+  int sampling = std::stoi(argv[2]);
   if (check_ext(srcfilename, "obj"))
   {
     if (dstfilename.empty())
