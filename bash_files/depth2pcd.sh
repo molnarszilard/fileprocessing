@@ -8,7 +8,7 @@ basedir=/media/rambo/ssd2/Szilard/nyu_v2_filter/comparison/
 # basedir=/media/rambo/ssd2/Szilard/kitti/validation/
 ddir=$basedir'own/predv40/predictions_n00/'
 pcddir=$basedir'pcdpred/'
-camera="nyu" #pico, nyu, kitti, isaac
+camera="pico" #pico, nyu, kitti, isaac
 
 if [[ ! -z "$1" ]] 
 then 

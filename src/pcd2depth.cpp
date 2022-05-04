@@ -137,7 +137,9 @@ int main(int argc, char **argv)
             }
             // std::cout << cloud->points[i].z << "," << pixel_pos_x << "," << pixel_pos_y << std::endl;
             // std::cout<<"pixels="<<pixel_pos_x<<","<<pixel_pos_y<<","<<z<<std::endl;
-            output.at<uint16_t>(pixel_pos_y, pixel_pos_x) = z;
+            if(output.at<uint16_t>(pixel_pos_y, pixel_pos_x) == 0 || output.at<uint16_t>(pixel_pos_y, pixel_pos_x) > z){
+                output.at<uint16_t>(pixel_pos_y, pixel_pos_x) = z;
+            }
             // output.at<Vec3b>(pixel_pos_y, pixel_pos_x)[1] = z;
             // output.at<Vec3b>(pixel_pos_y, pixel_pos_x)[2] = z;
         }
