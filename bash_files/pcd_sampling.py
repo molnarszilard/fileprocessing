@@ -9,7 +9,7 @@ from pclpy import pcl
 parser = argparse.ArgumentParser(description='Process some integers.')
 parser.add_argument('--dir', default="/mnt/ssd1/datasets/c24/pcd_4bag/",
                     help='the directory to the source files')
-parser.add_argument('--size', default=4096,
+parser.add_argument('--size', default=4096, type=int,
                     help='the size of the new pcd')
 parser.add_argument('--multiple_folders', default=False,
                     help='if you have multiple subfolder containing point clouds, set this flag to true')

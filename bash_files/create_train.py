@@ -11,6 +11,8 @@ parser.add_argument('--dir', default="",
                     help='the directory to the source files')
 parser.add_argument('-p','--proportion', default=5, type=int,
                     help='every n-th image is considered test, others are considered train')
+parser.add_argument('--ending', default="", type=str,
+                    help='check the file format what you would like to check. By default it works with png,jpg,npy and pcd')
 args = parser.parse_args()
 
 directory=args.dir
@@ -19,12 +21,19 @@ images=[]
 dlist=os.listdir(directory)
 dlist.sort()
 for filename in dlist:
-    if filename.endswith(".jpg") or filename.endswith(".png") or filename.endswith(".npy"):
-        #print(os.path.join(directory, filename))
-        images.append(filename)
-    else:
-        continue
-
+    if args.ending=="":
+        if filename.endswith(".jpg") or filename.endswith(".png") or filename.endswith(".npy") or filename.endswith(".pcd"):
+            #print(os.path.join(directory, filename))
+            images.append(filename)
+        else:
+            continue
+    else: 
+        if filename.endswith(args.ending):
+            #print(os.path.join(directory, filename))
+            images.append(filename)
+        else:
+            continue
+        
 if not os.path.exists(directory+"test"):
     os.makedirs(directory+"test")
 if not os.path.exists(directory+"train"):
