@@ -33,7 +33,7 @@ for filename in dlist:
             images.append(filename)
         else:
             continue
-        
+
 if not os.path.exists(directory+"test"):
     os.makedirs(directory+"test")
 if not os.path.exists(directory+"train"):
@@ -58,7 +58,6 @@ n=0
 for i in range(len(images)):    
     # image=cv2.imread(directory+images[i],cv2.IMREAD_UNCHANGED )
     image_name=images[i]
-    print(filename)
     if n%args.proportion == 0 :
         # cv2.imwrite(directory+"test/"+filename+".png", image.astype(np.uint16)) 
         shutil.move(directory+image_name,directory+"test/"+image_name)
