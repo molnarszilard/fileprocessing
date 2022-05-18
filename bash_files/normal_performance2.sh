@@ -2,25 +2,25 @@
 builddir=$PWD'/../build/'
 
 # path, leaf size, meanK, StddevMulThresh
-histo=histogram_tofclean_lenssenn_on_lenssen_n10.txt
+histo=histogram_v2_ir2depth_n10.txt
 start=0
-end=1449
+end=4331
 # basedir=/media/rambo/ssd2/Szilard/kitti/validation/
 # basedir=/media/rambo/ssd2/Szilard/c24/
 # basedir=/media/rambo/ssd2/Szilard/pico_tofnest/
 # basedir=/media/rambo/ssd2/Szilard/nyu_tofnest/
-basedir=/media/rambo/ssd2/Szilard/lenssen_tofnest/
-gtdir=$basedir'pcdnormals/'
+basedir=/mnt/ssd1/datasets/c24/evaluation/
+gtdir=$basedir'pcdnormal/'
 # gtdir=/media/rambo/ssd2/Szilard/kitti/validation/nestipred/
-deltadir=$basedir'pcdpred_delta/'
+deltadir=$basedir'pcdpred_delta_ir2depth_n10/'
 gtending=.pcd
 step=10
-camera="nyu" #pico, nyu, kitti, isaac
+camera="pico" #pico, nyu, kitti, isaac
 
 case $1 in
     own) # ToFNest
         echo ToFNest
-        preddir=$basedir'pcdpred/'
+        preddir=$basedir'noise/pcdpred_ir2d_n10/'
         predending=.pcd
         ;;
     nesti) # Nesti-Net

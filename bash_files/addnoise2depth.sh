@@ -1,14 +1,11 @@
 #!bin/bash
 
 builddir=$PWD'/../build/'
-# basedir=/media/rambo/ssd2/Szilard/c24/
-# basedir=/media/rambo/ssd2/Szilard/pico_tofnest/
-# basedir=/media/rambo/ssd2/Szilard/nyu_tofnest/
-basedir=/media/rambo/ssd2/Szilard/lenssen_tofnest/
-default_dir=$basedir'noise/depth/' # path to input file directory
+basedir=/mnt/ssd1/datasets/c24/evaluation/
+default_dir=$basedir'depth/' # path to input file directory
 default_iext=.png # find the files with these extension
-default_od=$basedir'noise/depth_n02/' # 
-default_sigma=20 #mm
+default_od=$basedir'noise/depth_n10/' # 
+default_sigma=100 #mm
 
 if [[ ! -z "$1" ]] 
 then 

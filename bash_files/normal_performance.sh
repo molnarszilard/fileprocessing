@@ -2,23 +2,23 @@
 builddir=$PWD'/../build/'
 
 # path, leaf size, meanK, StddevMulThresh
-histo=histogram_test.txt
+histo=histogram_test_d2ir.txt
 start=0
-end=10
+end=4331
 # basedir=/media/rambo/ssd2/Szilard/kitti/validation/
 # basedir=/media/rambo/ssd2/Szilard/c24/
 # basedir=/media/rambo/ssd2/Szilard/pico_tofnest/
 # basedir=/media/rambo/ssd2/Szilard/nyu_tofnest/
-basedir=/media/rambo/ssd2/Szilard/lenssen_tofnest/
-gtdir=$basedir'pcdnormals/'
-deltadir=$basedir'pcdpred_delta/'
+basedir=/mnt/ssd1/datasets/c24/evaluation/
+gtdir=$basedir'pcdnormal/'
+deltadir=$basedir'pcdpred_delta_d2ir/'
 gtending=.pcd
 step=10
 
 case $1 in
     own) # ToFNest
         echo ToFNest
-        preddir=$basedir'pcdpred/'
+        preddir=$basedir'pcdpred_d2ir/'
         predending=.pcd
         ;;
     nesti) # Nesti-Net

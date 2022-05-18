@@ -27,7 +27,7 @@ int main(int argc, char **argv)
     cv::Mat mat_ir = cv::imread(file_ir, IMREAD_UNCHANGED);
     cv::Mat zerochannel = cv::Mat::zeros(cv::Size(mat_depth.rows, mat_depth.cols), CV_16U);
     cv::Mat output = cv::Mat::zeros(mat_depth.rows, mat_depth.cols, CV_16UC3);
-    cv::Mat images[3] = {mat_ir, mat_depth, mat_depth};
+    cv::Mat images[3] = {mat_ir, mat_ir, mat_depth};
     int dims[3] = {2, mat_depth.rows, mat_depth.cols};
     cv::Mat joined(3, dims, CV_16U);
     for (int i = 0; i < 3; i++)
